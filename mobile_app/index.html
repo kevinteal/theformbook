@@ -9,19 +9,35 @@
     <script src="js_css/jquery-1.11.1.min.js"></script>
     <script src="js_css/jquery.mobile-1.4.5.min.js"></script>
     <script src="js_css/wolftie.js"></script>
+    <script src="js_css/app_functions.js"></script>
 </head>
 <body>
 	<div data-role="page" data-theme="a">
 		<div data-role="header" data-position="inline">
 			<span id="header_logo" class="my_font large_font">The Form Book Predicts</span><br/>
             <span id="header_logo" class="my_font small_font">The Premier League, Football League &amp; Conference</span>
-         <a href="#menu_panel" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-nodisc-icon noiconbg ui-btn-icon-right ui-icon-bars ui-btn-icon-notext" >Stages</a>
+         <a href="#menu_panel" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-nodisc-icon noiconbg ui-btn-icon-right ui-icon-bars ui-btn-icon-notext" >Menu</a>
 		</div>
 		<div data-role="content"  data-theme="a">
 			
             <div class="split_box my_font">
             	<div class="left_div content_heading ">FIXTURES</div>
                 <div class="right_div content_sub_heading">SATURDAY, 13th JUNE 2015</div>
+            </div>
+            
+            
+            <div class="sub_heading my_font small_font"><span id="fixtures_list_heading">PREMIER LEAGUE</span><a href="#popup_leagues"  data-rel="popup" data-transition="pop"  class="ui-btn ui-btn-inline ui-mini ui-nodisc-icon noiconbg ui-icon-carat-d ui-btn-icon-notext" >Leagues</a>
+               
+             <div data-role="popup" id="popup_leagues" class="ui-content" data-theme="b" data-arrow="t">
+             <p><ul data-role="listview" >
+                  <li><a href="#" onClick="fixture_list_mainpage('PREMIER LEAGUE')">PREMIER LEAGUE</a></li>
+                  <li><a href="#" onClick="fixture_list_mainpage('CHAMPIONSHIP')">CHAMPIONSHIP</a></li>
+                  <li><a href="#" onClick="fixture_list_mainpage('LEAGUE 1')">LEAGUE 1</a></li>
+                  <li><a href="#" onClick="fixture_list_mainpage('LEAGUE 2')">LEAGUE 2</a></li>
+                  <li><a href="#" onClick="fixture_list_mainpage('CONFERENCE')">CONFERENCE</a></li>
+             </ul></p>
+            </div>
+                     
             </div>
             
             

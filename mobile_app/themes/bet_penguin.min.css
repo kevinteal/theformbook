@@ -30,11 +30,12 @@
 .noiconbg{
 	 background-color: transparent !important;
     box-shadow: none !important;
+	border:none !important;
 }
 
 .split_box{
 	width:100%;
-	height:1em;
+	height:2em;
 }
 .left_div{
 	width:40%;
@@ -53,6 +54,12 @@
 	margin-top:3px;
 	color:#a5a5a5;
 	font-size:0.5em;
+}
+.sub_heading{
+	width:100%;
+	height:40px;
+	box-sizing:border-box;
+	padding-left:30px;
 }
 
 /* Globals */
