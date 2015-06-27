@@ -34,8 +34,11 @@
 }
 
 .split_box{
+	margin-top:1em;
 	width:100%;
 	height:2em;
+	box-sizing:border-box;
+	padding-left:1em;
 }
 .left_div{
 	width:40%;
@@ -51,7 +54,7 @@
 	font-size:0.8em;
 }
 .content_sub_heading{
-	margin-top:3px;
+	margin-top:0.2em;
 	color:#a5a5a5;
 	font-size:0.5em;
 }
@@ -62,6 +65,54 @@
 	padding-left:30px;
 }
 
+.fixture_content{
+	width:100%;
+	height:200px;
+	box-sizing:border-box;
+	padding-left:0.5em;
+}
+
+.new_date{
+	float:left;
+	width:100%;
+	padding-left:30px;
+	margin-bottom:10px;
+	margin-top:15px;
+	color:#a5a5a5;
+}
+.fixture{
+	margin-bottom:5px;
+	margin-top:5px;
+}
+.fixture_home_team, .fixture_away_team{
+	float:left;
+	width:40%;
+	color:#fff !important;
+}
+.fixture_time{
+	float:left;
+	width:20%;
+	text-align:center;
+	color:#a5a5a5 !important;
+}
+
+
+.new_date:not(:first-child){
+	margin-top:30px;
+}
+
+.fixture_home_team{
+	text-align:right;
+}
+
+.fixture_font{
+	letter-spacing:2px;
+	font-size:0.6em;
+}
+
+#fixtures_page .ui-content{
+ padding:0px !important;
+}​
 /* Globals */
 /* Font
 -----------------------------------------------------------------------------------------------------------*/
