@@ -109,8 +109,35 @@
 	letter-spacing:2px;
 	font-size:0.6em;
 }
+.panel_menu_icon_wrapper{
+	float:left;
+	width:50%;
+	height:110px;
+	text-align:center;
+}
+.panel_menu_img{
+	float:left;
+	height:90px;
+	width:100%;
+	box-sizing:border-box;
+	padding:20px;
+	margin:auto;
+}
+.panel_menu_text{
+	float:left;
+	width:100%;
+	height:20px;
+}
 
-#fixtures_page .ui-content{
+
+
+
+
+
+
+
+/* DONT PUT CSS BELOW THIS. BREAKS SOMEHOW */
+.ui-content{
  padding:0px !important;
 }​
 /* Globals */

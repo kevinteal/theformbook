@@ -16,7 +16,7 @@
 		<div data-role="header" data-position="inline">
 			<span id="header_logo" class="my_font large_font">The Form Book Predicts</span><br/>
             <span id="header_logo" class="my_font small_font">The Premier League, Football League &amp; Conference</span>
-         <a href="#menu_panel" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-nodisc-icon noiconbg ui-btn-icon-right ui-icon-bars ui-btn-icon-notext" >Menu</a>
+         <a href="#fixture_menu_panel" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-nodisc-icon noiconbg ui-btn-icon-right ui-icon-bars ui-btn-icon-notext" >Menu</a>
 		</div>
 		<div data-role="content" id="fixtures_content"  data-theme="a">
 			
@@ -26,9 +26,9 @@
             </div>
             
             
-            <div class="sub_heading my_font small_font"><span id="fixtures_list_heading">PREMIER LEAGUE</span><a href="#popup_leagues"  data-rel="popup" data-transition="pop"  class="ui-btn ui-btn-inline ui-mini ui-nodisc-icon noiconbg ui-icon-carat-d ui-btn-icon-notext" >Leagues</a>
+            <div class="sub_heading my_font small_font"><span id="fixtures_list_heading">PREMIER LEAGUE</span><a href="#fixtures_popup_leagues"  data-rel="popup" data-transition="pop"  class="ui-btn ui-btn-inline ui-mini ui-nodisc-icon noiconbg ui-icon-carat-d ui-btn-icon-notext" >Leagues</a>
                
-             <div data-role="popup" id="popup_leagues" class="ui-content" data-theme="b" data-arrow="t">
+             <div data-role="popup" id="fixtures_popup_leagues" class="ui-content" data-theme="b" data-arrow="t">
              <p><ul data-role="listview" >
                   <li><a href="#" onClick="fixture_list_mainpage('PREMIER LEAGUE')">PREMIER LEAGUE</a></li>
                   <li><a href="#" onClick="fixture_list_mainpage('CHAMPIONSHIP')">CHAMPIONSHIP</a></li>
@@ -51,20 +51,105 @@
                 <span class="fixture"><div class="fixture_home_team">SUNDERLAND</div><div class="fixture_time">12:45</div><div class="fixture_away_team">NEWCASTLE</div></span>
                 <span class="fixture"><div class="fixture_home_team">TOTTENHAM</div><div class="fixture_time">15:00</div><div class="fixture_away_team">ARSENAL</div></span>
                  <span class="fixture"><div class="fixture_home_team">WEST HAM</div><div class="fixture_time">15:00</div><div class="fixture_away_team">MAN CITY</div></span>
+                 
+                
+                 
            
             </div>
             
             
 		</div>
         
-        <div data-role="panel" data-position="right" data-position-fixed="false" data-display="overlay" id="menu_panel" data-theme="b">
+        <div data-role="panel" data-position="right" data-position-fixed="false" data-display="overlay" id="fixture_menu_panel" data-theme="b">
                             <!-- panel content goes here -->
-                           <center> <h4 id="Stage_panel_heading_text">Select Stage</h4></center>
-            <ul data-role="listview" id="panel_stages">
-              
-            </ul>
+              <center> <h4 >Form Book Menu</h4></center>
+            				<div class="panel_menu_icon_wrapper" onClick="panel_change_page('prediction')" ><div class="panel_menu_img"><img src="imgs/prediction.png" /></div><div class="panel_menu_text">PREDICTIONS</div></div>
+                            <div class="panel_menu_icon_wrapper" onClick="panel_change_page('fixtures')" ><div class="panel_menu_img"><img src="imgs/fixtures.png" /></div><div class="panel_menu_text">FIXTURES</div></div>
+                            <div class="panel_menu_icon_wrapper" onClick="panel_change_page('results')" ><div class="panel_menu_img"><img src="imgs/results.png" /></div><div class="panel_menu_text">RESULTS</div></div>
+                            <div class="panel_menu_icon_wrapper" onClick="panel_change_page('table')" ><div class="panel_menu_img"><img src="imgs/league.png" /></div><div class="panel_menu_text">TABLES</div></div>
+                            <div class="panel_menu_icon_wrapper" onClick="panel_change_page('teams')" ><div class="panel_menu_img"><img src="imgs/teams.png" /></div><div class="panel_menu_text">TEAMS</div></div>
             </div><!-- /panel -->
-	</div>
+	</div><!-- /fixtures -->
+    
+    
+    
+    
+    
+    
+    
+    
+    <div data-role="page" id="results_page" data-theme="a">
+		<div data-role="header" data-position="inline">
+			<span id="header_logo" class="my_font large_font">The Form Book Predicts</span><br/>
+            <span id="header_logo" class="my_font small_font">The Premier League, Football League &amp; Conference</span>
+         <a href="#results_menu_panel" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-nodisc-icon noiconbg ui-btn-icon-right ui-icon-bars ui-btn-icon-notext" >Menu</a>
+		</div>
+		<div data-role="content" id="results_content"  data-theme="a">
+			
+            <div class="split_box my_font">
+            	<div class="left_div content_heading ">RESULTS</div>
+                <div class="right_div content_sub_heading">SATURDAY, 13th JUNE 2015</div>
+            </div>
+            
+            
+            <div class="sub_heading my_font small_font"><span id="results_list_heading">PREMIER LEAGUE</span><a href="#results_popup_leagues"  data-rel="popup" data-transition="pop"  class="ui-btn ui-btn-inline ui-mini ui-nodisc-icon noiconbg ui-icon-carat-d ui-btn-icon-notext" >Leagues</a>
+               
+             <div data-role="popup" id="results_popup_leagues" class="ui-content" data-theme="b" data-arrow="t">
+             <p><ul data-role="listview" >
+                  <li><a href="#" onClick="results_list_mainpage('PREMIER LEAGUE')">PREMIER LEAGUE</a></li>
+                  <li><a href="#" onClick="results_list_mainpage('CHAMPIONSHIP')">CHAMPIONSHIP</a></li>
+                  <li><a href="#" onClick="results_list_mainpage('LEAGUE 1')">LEAGUE 1</a></li>
+                  <li><a href="#" onClick="results_list_mainpage('LEAGUE 2')">LEAGUE 2</a></li>
+                  <li><a href="#" onClick="results_list_mainpage('CONFERENCE')">CONFERENCE</a></li>
+             </ul></p>
+            </div>
+    
+            </div>
+            
+            <div class="fixture_content fixture_font">
+            
+                <div class="new_date">SATURDAY, 13th JUNE 2015</div>
+                <span class="fixture"><div class="fixture_home_team">SUNDERLAND</div><div class="fixture_time">1 - 0</div><div class="fixture_away_team">NEWCASTLE</div></span>
+                <span class="fixture"><div class="fixture_home_team">TOTTENHAM</div><div class="fixture_time">1 - 3</div><div class="fixture_away_team">ARSENAL</div></span>
+                 <span class="fixture"><div class="fixture_home_team">WEST HAM</div><div class="fixture_time">0 - 0</div><div class="fixture_away_team">MAN CITY</div></span>
+                
+                <div class="new_date">SUNDAY, 14th JUNE 2015</div>
+                <span class="fixture"><div class="fixture_home_team">SUNDERLAND</div><div class="fixture_time">1 - 1</div><div class="fixture_away_team">NEWCASTLE</div></span>
+                <span class="fixture"><div class="fixture_home_team">TOTTENHAM</div><div class="fixture_time">3 - 0</div><div class="fixture_away_team">ARSENAL</div></span>
+                 <span class="fixture"><div class="fixture_home_team">WEST HAM</div><div class="fixture_time">4 - 3</div><div class="fixture_away_team">MAN CITY</div></span>
+                 
+                
+                 
+           
+            </div>
+            
+            
+		</div>
+        
+        <div data-role="panel" data-position="right" data-position-fixed="false" data-display="overlay" id="results_menu_panel" data-theme="b">
+                            <!-- panel content goes here -->
+              <center> <h4 >Form Book Menu</h4></center>
+            				<div class="panel_menu_icon_wrapper" onClick="panel_change_page('prediction')" ><div class="panel_menu_img"><img src="imgs/prediction.png" /></div><div class="panel_menu_text">PREDICTIONS</div></div>
+                            <div class="panel_menu_icon_wrapper" onClick="panel_change_page('fixtures')" ><div class="panel_menu_img"><img src="imgs/fixtures.png" /></div><div class="panel_menu_text">FIXTURES</div></div>
+                            <div class="panel_menu_icon_wrapper" onClick="panel_change_page('results')" ><div class="panel_menu_img"><img src="imgs/results.png" /></div><div class="panel_menu_text">RESULTS</div></div>
+                            <div class="panel_menu_icon_wrapper" onClick="panel_change_page('table')" ><div class="panel_menu_img"><img src="imgs/league.png" /></div><div class="panel_menu_text">TABLES</div></div>
+                            <div class="panel_menu_icon_wrapper" onClick="panel_change_page('teams')" ><div class="panel_menu_img"><img src="imgs/teams.png" /></div><div class="panel_menu_text">TEAMS</div></div>
+            </div><!-- /panel -->
+	</div><!-- /fixtures -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     

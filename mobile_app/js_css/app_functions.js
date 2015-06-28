@@ -25,5 +25,16 @@ $(document).ready(function(e) {
 
 function fixture_list_mainpage(league){
 	document.getElementById('fixtures_list_heading').innerHTML=league;
-	$( "#popup_leagues" ).popup( "close" )
+	$( "#fixtures_popup_leagues" ).popup( "close" )
+}
+function results_list_mainpage(league){
+	document.getElementById('results_list_heading').innerHTML=league;
+	$( "#results_popup_leagues" ).popup( "close" )
+}
+
+function panel_change_page(page){
+	console.log("goto "+page);
+	$("#menu_panel").panel("close");
+//	$.mobile.navigate( "#"+page+"_page" );
+	$( ":mobile-pagecontainer" ).pagecontainer( "change", "#"+page+"_page", { transition: "slide" } );
 }
