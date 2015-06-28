@@ -32,6 +32,11 @@ function results_list_mainpage(league){
 	$( "#results_popup_leagues" ).popup( "close" )
 }
 
+function tables_list_mainpage(league){
+	document.getElementById('tables_list_heading').innerHTML=league;
+	$( "#tables_popup_leagues" ).popup( "close" )
+}
+
 function panel_change_page(page){
 	console.log("goto "+page);
 	$("#menu_panel").panel("close");

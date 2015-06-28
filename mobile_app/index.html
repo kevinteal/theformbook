@@ -30,11 +30,11 @@
                
              <div data-role="popup" id="fixtures_popup_leagues" class="ui-content" data-theme="b" data-arrow="t">
              <p><ul data-role="listview" >
-                  <li><a href="#" onClick="fixture_list_mainpage('PREMIER LEAGUE')">PREMIER LEAGUE</a></li>
-                  <li><a href="#" onClick="fixture_list_mainpage('CHAMPIONSHIP')">CHAMPIONSHIP</a></li>
-                  <li><a href="#" onClick="fixture_list_mainpage('LEAGUE 1')">LEAGUE 1</a></li>
-                  <li><a href="#" onClick="fixture_list_mainpage('LEAGUE 2')">LEAGUE 2</a></li>
-                  <li><a href="#" onClick="fixture_list_mainpage('CONFERENCE')">CONFERENCE</a></li>
+                  <li><a href="#fixtures_list_heading" onClick="fixture_list_mainpage('PREMIER LEAGUE')">PREMIER LEAGUE</a></li>
+                  <li><a href="#fixtures_list_heading" onClick="fixture_list_mainpage('CHAMPIONSHIP')">CHAMPIONSHIP</a></li>
+                  <li><a href="#fixtures_list_heading" onClick="fixture_list_mainpage('LEAGUE 1')">LEAGUE 1</a></li>
+                  <li><a href="#fixtures_list_heading" onClick="fixture_list_mainpage('LEAGUE 2')">LEAGUE 2</a></li>
+                  <li><a href="#fixtures_list_heading" onClick="fixture_list_mainpage('CONFERENCE')">CONFERENCE</a></li>
              </ul></p>
             </div>
     
@@ -66,7 +66,7 @@
             				<div class="panel_menu_icon_wrapper" onClick="panel_change_page('prediction')" ><div class="panel_menu_img"><img src="imgs/prediction.png" /></div><div class="panel_menu_text">PREDICTIONS</div></div>
                             <div class="panel_menu_icon_wrapper" onClick="panel_change_page('fixtures')" ><div class="panel_menu_img"><img src="imgs/fixtures.png" /></div><div class="panel_menu_text">FIXTURES</div></div>
                             <div class="panel_menu_icon_wrapper" onClick="panel_change_page('results')" ><div class="panel_menu_img"><img src="imgs/results.png" /></div><div class="panel_menu_text">RESULTS</div></div>
-                            <div class="panel_menu_icon_wrapper" onClick="panel_change_page('table')" ><div class="panel_menu_img"><img src="imgs/league.png" /></div><div class="panel_menu_text">TABLES</div></div>
+                            <div class="panel_menu_icon_wrapper" onClick="panel_change_page('tables')" ><div class="panel_menu_img"><img src="imgs/league.png" /></div><div class="panel_menu_text">TABLES</div></div>
                             <div class="panel_menu_icon_wrapper" onClick="panel_change_page('teams')" ><div class="panel_menu_img"><img src="imgs/teams.png" /></div><div class="panel_menu_text">TEAMS</div></div>
             </div><!-- /panel -->
 	</div><!-- /fixtures -->
@@ -96,11 +96,11 @@
                
              <div data-role="popup" id="results_popup_leagues" class="ui-content" data-theme="b" data-arrow="t">
              <p><ul data-role="listview" >
-                  <li><a href="#" onClick="results_list_mainpage('PREMIER LEAGUE')">PREMIER LEAGUE</a></li>
-                  <li><a href="#" onClick="results_list_mainpage('CHAMPIONSHIP')">CHAMPIONSHIP</a></li>
-                  <li><a href="#" onClick="results_list_mainpage('LEAGUE 1')">LEAGUE 1</a></li>
-                  <li><a href="#" onClick="results_list_mainpage('LEAGUE 2')">LEAGUE 2</a></li>
-                  <li><a href="#" onClick="results_list_mainpage('CONFERENCE')">CONFERENCE</a></li>
+                  <li><a href="#results_list_heading" onClick="results_list_mainpage('PREMIER LEAGUE')">PREMIER LEAGUE</a></li>
+                  <li><a href="#results_list_heading" onClick="results_list_mainpage('CHAMPIONSHIP')">CHAMPIONSHIP</a></li>
+                  <li><a href="#results_list_heading" onClick="results_list_mainpage('LEAGUE 1')">LEAGUE 1</a></li>
+                  <li><a href="#results_list_heading" onClick="results_list_mainpage('LEAGUE 2')">LEAGUE 2</a></li>
+                  <li><a href="#results_list_heading" onClick="results_list_mainpage('CONFERENCE')">CONFERENCE</a></li>
              </ul></p>
             </div>
     
@@ -132,10 +132,83 @@
             				<div class="panel_menu_icon_wrapper" onClick="panel_change_page('prediction')" ><div class="panel_menu_img"><img src="imgs/prediction.png" /></div><div class="panel_menu_text">PREDICTIONS</div></div>
                             <div class="panel_menu_icon_wrapper" onClick="panel_change_page('fixtures')" ><div class="panel_menu_img"><img src="imgs/fixtures.png" /></div><div class="panel_menu_text">FIXTURES</div></div>
                             <div class="panel_menu_icon_wrapper" onClick="panel_change_page('results')" ><div class="panel_menu_img"><img src="imgs/results.png" /></div><div class="panel_menu_text">RESULTS</div></div>
-                            <div class="panel_menu_icon_wrapper" onClick="panel_change_page('table')" ><div class="panel_menu_img"><img src="imgs/league.png" /></div><div class="panel_menu_text">TABLES</div></div>
+                            <div class="panel_menu_icon_wrapper" onClick="panel_change_page('tables')" ><div class="panel_menu_img"><img src="imgs/league.png" /></div><div class="panel_menu_text">TABLES</div></div>
                             <div class="panel_menu_icon_wrapper" onClick="panel_change_page('teams')" ><div class="panel_menu_img"><img src="imgs/teams.png" /></div><div class="panel_menu_text">TEAMS</div></div>
             </div><!-- /panel -->
-	</div><!-- /fixtures -->
+	</div><!-- /results -->
+    
+    
+    
+    <div data-role="page" id="tables_page" data-theme="a">
+		<div data-role="header" data-position="inline">
+			<span id="header_logo" class="my_font large_font">The Form Book Predicts</span><br/>
+            <span id="header_logo" class="my_font small_font">The Premier League, Football League &amp; Conference</span>
+         <a href="#tables_menu_panel" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-nodisc-icon noiconbg ui-btn-icon-right ui-icon-bars ui-btn-icon-notext" >Menu</a>
+		</div>
+		<div data-role="content" id="fixtures_content"  data-theme="a">
+			
+            <div class="split_box my_font">
+            	<div class="left_div content_heading ">TABLES</div>
+                <div class="right_div content_sub_heading">SATURDAY, 13th JUNE 2015</div>
+            </div>
+            
+            
+            <div class="sub_heading my_font small_font"><span id="tables_list_heading">PREMIER LEAGUE</span><a href="#tables_popup_leagues"  data-rel="popup" data-transition="pop"  class="ui-btn ui-btn-inline ui-mini ui-nodisc-icon noiconbg ui-icon-carat-d ui-btn-icon-notext" >Leagues</a>
+               
+             <div data-role="popup" id="tables_popup_leagues" class="ui-content" data-theme="b" data-arrow="t">
+             <p><ul data-role="listview" >
+                  <li><a href="#tables_list_heading" onClick="tables_list_mainpage('PREMIER LEAGUE')">PREMIER LEAGUE</a></li>
+                  <li><a href="#tables_list_heading" onClick="tables_list_mainpage('CHAMPIONSHIP')">CHAMPIONSHIP</a></li>
+                  <li><a href="#tables_list_heading" onClick="tables_list_mainpage('LEAGUE 1')">LEAGUE 1</a></li>
+                  <li><a href="#tables_list_heading" onClick="tables_list_mainpage('LEAGUE 2')">LEAGUE 2</a></li>
+                  <li><a href="#tables_list_heading" onClick="tables_list_mainpage('CONFERENCE')">CONFERENCE</a></li>
+             </ul></p>
+            </div>
+    
+            </div>
+            
+            <div class="fixture_content fixture_font">
+            
+      <div class="clear_line"> <div class="_table_header_l">POINTS</div><div class="_table_header">L</div><div class="_table_header">D</div><div class="_table_header">W</div> <div class="_table_header">P</div></div>
+      
+      <div class="table_row_team"> <div class="table_team_pos">1</div> <div class="table_team_name">CHELSEA</div> <div class="table_team_played">38</div> <div class="table_team_won">30</div> <div class="table_team_drawn">5</div> <div class="table_team_lost">3</div> <div class="table_team_points">95</div> </div>
+       <div class="table_row_team"> <div class="table_team_pos">2</div> <div class="table_team_name">MAN CITY</div> <div class="table_team_played">38</div> <div class="table_team_won">29</div> <div class="table_team_drawn">6</div> <div class="table_team_lost">3</div> <div class="table_team_points">93</div> </div>
+        <div class="table_row_team"> <div class="table_team_pos">3</div> <div class="table_team_name">TOTTENHAM</div> <div class="table_team_played">38</div> <div class="table_team_won">25</div> <div class="table_team_drawn">10</div> <div class="table_team_lost">3</div> <div class="table_team_points">85</div> </div>
+         <div class="table_row_team"> <div class="table_team_pos">4</div> <div class="table_team_name">LIVERPOOL</div> <div class="table_team_played">38</div> <div class="table_team_won">20</div> <div class="table_team_drawn">15</div> <div class="table_team_lost">3</div> <div class="table_team_points">75</div> </div>
+         <div class="table_row_team"> <div class="table_team_pos">5</div> <div class="table_team_name">MAN UTD</div> <div class="table_team_played">38</div> <div class="table_team_won">20</div> <div class="table_team_drawn">15</div> <div class="table_team_lost">3</div> <div class="table_team_points">75</div> </div>
+         <div class="table_row_team"> <div class="table_team_pos">6</div> <div class="table_team_name">EVERTON</div> <div class="table_team_played">38</div> <div class="table_team_won">20</div> <div class="table_team_drawn">15</div> <div class="table_team_lost">3</div> <div class="table_team_points">75</div> </div>
+         <div class="table_row_team"> <div class="table_team_pos">7</div> <div class="table_team_name">SUNDERLAND</div> <div class="table_team_played">38</div> <div class="table_team_won">20</div> <div class="table_team_drawn">15</div> <div class="table_team_lost">3</div> <div class="table_team_points">75</div> </div>
+         <div class="table_row_team"> <div class="table_team_pos">8</div> <div class="table_team_name">NEWCASTLE</div> <div class="table_team_played">38</div> <div class="table_team_won">20</div> <div class="table_team_drawn">15</div> <div class="table_team_lost">3</div> <div class="table_team_points">75</div> </div>
+         <div class="table_row_team"> <div class="table_team_pos">9</div> <div class="table_team_name">HULL</div> <div class="table_team_played">38</div> <div class="table_team_won">20</div> <div class="table_team_drawn">15</div> <div class="table_team_lost">3</div> <div class="table_team_points">75</div> </div>
+         <div class="table_row_team"> <div class="table_team_pos">10</div> <div class="table_team_name">WEST BROM</div> <div class="table_team_played">38</div> <div class="table_team_won">20</div> <div class="table_team_drawn">15</div> <div class="table_team_lost">3</div> <div class="table_team_points">75</div> </div>
+         <div class="table_row_team"> <div class="table_team_pos">11</div> <div class="table_team_name">WEST HAM</div> <div class="table_team_played">38</div> <div class="table_team_won">20</div> <div class="table_team_drawn">15</div> <div class="table_team_lost">3</div> <div class="table_team_points">75</div> </div>
+         <div class="table_row_team"> <div class="table_team_pos">12</div> <div class="table_team_name">ASTON VILLA</div> <div class="table_team_played">38</div> <div class="table_team_won">20</div> <div class="table_team_drawn">15</div> <div class="table_team_lost">3</div> <div class="table_team_points">75</div> </div>
+         <div class="table_row_team"> <div class="table_team_pos">13</div> <div class="table_team_name">CRYSTAL PALACE</div> <div class="table_team_played">38</div> <div class="table_team_won">20</div> <div class="table_team_drawn">15</div> <div class="table_team_lost">3</div> <div class="table_team_points">75</div> </div>
+         <div class="table_row_team"> <div class="table_team_pos">14</div> <div class="table_team_name">QPR</div> <div class="table_team_played">38</div> <div class="table_team_won">20</div> <div class="table_team_drawn">15</div> <div class="table_team_lost">3</div> <div class="table_team_points">75</div> </div>
+         <div class="table_row_team"> <div class="table_team_pos">15</div> <div class="table_team_name">BURNLEY</div> <div class="table_team_played">38</div> <div class="table_team_won">20</div> <div class="table_team_drawn">15</div> <div class="table_team_lost">3</div> <div class="table_team_points">75</div> </div>
+         <div class="table_row_team"> <div class="table_team_pos">16</div> <div class="table_team_name">LEICESTER CITY</div> <div class="table_team_played">38</div> <div class="table_team_won">20</div> <div class="table_team_drawn">15</div> <div class="table_team_lost">3</div> <div class="table_team_points">75</div> </div>
+         <div class="table_row_team"> <div class="table_team_pos">17</div> <div class="table_team_name">SOUTHAMPTON</div> <div class="table_team_played">38</div> <div class="table_team_won">20</div> <div class="table_team_drawn">15</div> <div class="table_team_lost">3</div> <div class="table_team_points">75</div> </div>
+         <div class="table_row_team"> <div class="table_team_pos">18</div> <div class="table_team_name">STOKE CITY</div> <div class="table_team_played">38</div> <div class="table_team_won">20</div> <div class="table_team_drawn">15</div> <div class="table_team_lost">3</div> <div class="table_team_points">75</div> </div>
+         <div class="table_row_team"> <div class="table_team_pos">19</div> <div class="table_team_name">SWANSEA</div> <div class="table_team_played">38</div> <div class="table_team_won">20</div> <div class="table_team_drawn">15</div> <div class="table_team_lost">3</div> <div class="table_team_points">75</div> </div>
+         <div class="table_row_team"> <div class="table_team_pos">20</div> <div class="table_team_name">ARSENAL</div> <div class="table_team_played">38</div> <div class="table_team_won">20</div> <div class="table_team_drawn">15</div> <div class="table_team_lost">3</div> <div class="table_team_points">75</div> </div>
+         
+      
+            </div>
+            
+            
+		</div>
+        
+        <div data-role="panel" data-position="right" data-position-fixed="false" data-display="overlay" id="tables_menu_panel" data-theme="b">
+                            <!-- panel content goes here -->
+              <center> <h4 >Form Book Menu</h4></center>
+            				<div class="panel_menu_icon_wrapper" onClick="panel_change_page('prediction')" ><div class="panel_menu_img"><img src="imgs/prediction.png" /></div><div class="panel_menu_text">PREDICTIONS</div></div>
+                            <div class="panel_menu_icon_wrapper" onClick="panel_change_page('fixtures')" ><div class="panel_menu_img"><img src="imgs/fixtures.png" /></div><div class="panel_menu_text">FIXTURES</div></div>
+                            <div class="panel_menu_icon_wrapper" onClick="panel_change_page('results')" ><div class="panel_menu_img"><img src="imgs/results.png" /></div><div class="panel_menu_text">RESULTS</div></div>
+                            <div class="panel_menu_icon_wrapper" onClick="panel_change_page('tables')" ><div class="panel_menu_img"><img src="imgs/league.png" /></div><div class="panel_menu_text">TABLES</div></div>
+                            <div class="panel_menu_icon_wrapper" onClick="panel_change_page('teams')" ><div class="panel_menu_img"><img src="imgs/teams.png" /></div><div class="panel_menu_text">TEAMS</div></div>
+            </div><!-- /panel -->
+	</div><!-- /tables -->
+    
     
     
     
