@@ -67,7 +67,7 @@
 
 .fixture_content{
 	width:100%;
-	height:200px;
+	/*height:200px;*/
 	box-sizing:border-box;
 	padding-left:0.5em;
 }
@@ -205,9 +205,26 @@
 	color:#b4b4b4;
 }
 
-
-
-
+.team_side_left{
+	float:left;
+	width:45%;
+	text-align:right;
+}
+.team_side_right{
+	float:right;
+	width:45%;
+}
+.team_name{
+	float:left;
+	width:100%;
+	box-sizing:border-box;
+	padding-bottom:1.1em;
+	color:#b4b4b4;
+	font-size:1.2em;
+}
+.teams_select .prediction_heading{
+	color:white;
+}
 
 
 /* DONT PUT CSS BELOW THIS. BREAKS SOMEHOW */

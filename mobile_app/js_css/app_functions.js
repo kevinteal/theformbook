@@ -36,6 +36,9 @@ function tables_list_mainpage(league){
 	document.getElementById('tables_list_heading').innerHTML=league;
 	$( "#tables_popup_leagues" ).popup( "close" )
 }
+function team_selected(team){
+	console.log("selected "+team);
+}
 
 function panel_change_page(page){
 	console.log("goto "+page);
