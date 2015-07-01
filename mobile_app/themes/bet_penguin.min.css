@@ -227,6 +227,28 @@
 }
 
 
+#teams_title_link{
+	display:inline-block;
+	margin-left:-1.2em;
+	margin-top:1em;
+}
+
+.three_split{
+	float:left;
+	width:33%;
+	text-align:center;
+	font-size:0.7em;
+	letter-spacing:2px;
+}
+.smallfont_gap{
+	font-size:0.5em !important;
+	color:b4b4b4;
+	margin-top:0.7em;
+}
+
+
+
+
 /* DONT PUT CSS BELOW THIS. BREAKS SOMEHOW */
 .ui-content{
  padding:0px !important;

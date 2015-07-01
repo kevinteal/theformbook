@@ -38,6 +38,7 @@ function tables_list_mainpage(league){
 }
 function team_selected(team){
 	console.log("selected "+team);
+	$( ":mobile-pagecontainer" ).pagecontainer( "change", "#stats_team", { transition: "slide" } );
 }
 
 function panel_change_page(page){
