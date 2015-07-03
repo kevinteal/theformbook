@@ -15,7 +15,7 @@
 	font-weight:lighter;
 	color:#c2c2c2;
 }
-#header_logo{
+.header_logo{
 	margin-left:20px;
 	line-height:25px;
 }
@@ -239,13 +239,25 @@
 	text-align:center;
 	font-size:0.7em;
 	letter-spacing:2px;
+	margin-bottom:20px;
 }
 .smallfont_gap{
 	font-size:0.5em !important;
 	color:b4b4b4;
 	margin-top:0.7em;
 }
-
+.underline_text{
+	text-decoration:underline;
+}
+.highlight_team{
+	color:#74cec5 !important;
+}
+.hightlight_win{
+	color:#6faa77 !important;
+}
+.hightlight_loss{
+	color:#ff3963 !important;
+}
 
 
 

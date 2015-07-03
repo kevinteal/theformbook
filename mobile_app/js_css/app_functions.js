@@ -40,10 +40,22 @@ function team_selected(team){
 	console.log("selected "+team);
 	$( ":mobile-pagecontainer" ).pagecontainer( "change", "#stats_team", { transition: "slide" } );
 }
+function show_results_team(){
+	$("#team_results_head").addClass("underline_text");
+	$("#team_fixtures_head").removeClass("underline_text");
+	var team = document.getElementById("team_name_heading").textContent;
+}
+function show_fixtures_team(){
+	$("#team_fixtures_head").addClass("underline_text");
+	$("#team_results_head").removeClass("underline_text");
+}
+
+
+
 
 function panel_change_page(page){
 	console.log("goto "+page);
-	$("#menu_panel").panel("close");
+	//$("#menu_panel").panel("close");
 //	$.mobile.navigate( "#"+page+"_page" );
 	$( ":mobile-pagecontainer" ).pagecontainer( "change", "#"+page+"_page", { transition: "slide" } );
 }

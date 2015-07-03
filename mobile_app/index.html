@@ -14,11 +14,11 @@
 <body>
 	<div data-role="page" id="fixtures_page" data-theme="a">
 		<div data-role="header" data-position="inline">
-			<span id="header_logo" class="my_font large_font">The Form Book Predicts</span><br/>
-            <span id="header_logo" class="my_font small_font">The Premier League, Football League &amp; Conference</span>
+			<span class="header_logo my_font large_font">The Form Book Predicts</span><br/>
+            <span class="header_logo my_font small_font">The Premier League, Football League &amp; Conference</span>
          <a href="#fixture_menu_panel" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-nodisc-icon noiconbg ui-btn-icon-right ui-icon-bars ui-btn-icon-notext" >Menu</a>
 		</div>
-		<div data-role="content" id="fixtures_content"  data-theme="a">
+		<div data-role="content" id="fixtures_content" data-theme="a">
 			
             <div class="split_box my_font">
             	<div class="left_div content_heading ">FIXTURES</div>
@@ -40,7 +40,7 @@
     
             </div>
             
-            <div class="fixture_content fixture_font">
+            <div id="_fixture_data" class="fixture_content fixture_font">
             
                 <div class="new_date">SATURDAY, 13th JUNE 2015</div>
                 <span class="fixture"><div class="fixture_home_team">SUNDERLAND</div><div class="fixture_time">12:45</div><div class="fixture_away_team">NEWCASTLE</div></span>
@@ -80,8 +80,8 @@
     
     <div data-role="page" id="results_page" data-theme="a">
 		<div data-role="header" data-position="inline">
-			<span id="header_logo" class="my_font large_font">The Form Book Predicts</span><br/>
-            <span id="header_logo" class="my_font small_font">The Premier League, Football League &amp; Conference</span>
+			<span class="header_logo my_font large_font">The Form Book Predicts</span><br/>
+            <span class="header_logo my_font small_font">The Premier League, Football League &amp; Conference</span>
          <a href="#results_menu_panel" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-nodisc-icon noiconbg ui-btn-icon-right ui-icon-bars ui-btn-icon-notext" >Menu</a>
 		</div>
 		<div data-role="content" id="results_content"  data-theme="a">
@@ -106,7 +106,7 @@
     
             </div>
             
-            <div class="fixture_content fixture_font">
+            <div id="_results_data" class="fixture_content fixture_font">
             
                 <div class="new_date">SATURDAY, 13th JUNE 2015</div>
                 <span class="fixture"><div class="fixture_home_team">SUNDERLAND</div><div class="fixture_time">1 - 0</div><div class="fixture_away_team">NEWCASTLE</div></span>
@@ -141,11 +141,11 @@
     
     <div data-role="page" id="tables_page" data-theme="a">
 		<div data-role="header" data-position="inline">
-			<span id="header_logo" class="my_font large_font">The Form Book Predicts</span><br/>
-            <span id="header_logo" class="my_font small_font">The Premier League, Football League &amp; Conference</span>
+			<span class="header_logo my_font large_font">The Form Book Predicts</span><br/>
+            <span class="header_logo my_font small_font">The Premier League, Football League &amp; Conference</span>
          <a href="#tables_menu_panel" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-nodisc-icon noiconbg ui-btn-icon-right ui-icon-bars ui-btn-icon-notext" >Menu</a>
 		</div>
-		<div data-role="content" id="fixtures_content"  data-theme="a">
+		<div data-role="content" id="league_tables_content" data-theme="a">
 			
             <div class="split_box my_font">
             	<div class="left_div content_heading ">TABLES</div>
@@ -167,7 +167,7 @@
     
             </div>
             
-            <div class="fixture_content fixture_font">
+            <div id="_tables_data" class="fixture_content fixture_font">
             
       <div class="clear_line"> <div class="_table_header_l">POINTS</div><div class="_table_header">L</div><div class="_table_header">D</div><div class="_table_header">W</div> <div class="_table_header">P</div></div>
       
@@ -217,11 +217,11 @@
     
     <div data-role="page" id="prediction_page" data-theme="a">
 		<div data-role="header" data-position="inline">
-			<span id="header_logo" class="my_font large_font">The Form Book Predicts</span><br/>
-            <span id="header_logo" class="my_font small_font">The Premier League, Football League &amp; Conference</span>
+			<span class="header_logo my_font large_font">The Form Book Predicts</span><br/>
+            <span class="header_logo my_font small_font">The Premier League, Football League &amp; Conference</span>
          <a href="#prediction_menu_panel" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-nodisc-icon noiconbg ui-btn-icon-right ui-icon-bars ui-btn-icon-notext" >Menu</a>
 		</div>
-		<div data-role="content" id="fixtures_content"  data-theme="a">
+		<div data-role="content" id="prediction_content" data-theme="a">
 			
             <div class="split_box my_font">
             	<div class="left_div content_heading ">PREDICTIONS</div>
@@ -229,7 +229,7 @@
             </div>
             
             
-             <div class="fixture_content fixture_font">
+             <div id="_prediction_data" class="fixture_content fixture_font">
             
             <div class="prediction_box">
             <div class="prediction_heading">PREMIER LEAGUE</div>
@@ -297,18 +297,18 @@
     
     <div data-role="page" id="teams_page" data-theme="a">
 		<div data-role="header" data-position="inline">
-			<span id="header_logo" class="my_font large_font">The Form Book Predicts</span><br/>
-            <span id="header_logo" class="my_font small_font">The Premier League, Football League &amp; Conference</span>
+			<span class="header_logo my_font large_font">The Form Book Predicts</span><br/>
+            <span class="header_logo my_font small_font">The Premier League, Football League &amp; Conference</span>
          <a href="#teams_menu_panel" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-nodisc-icon noiconbg ui-btn-icon-right ui-icon-bars ui-btn-icon-notext" >Menu</a>
 		</div>
-		<div data-role="content" id="fixtures_content"  data-theme="a">
+		<div data-role="content" id="teams_content" data-theme="a">
 			
             <div class="split_box my_font">
             	<div class="left_div content_heading ">TEAMS</div>
                 <div class="right_div content_sub_heading">SATURDAY, 13th JUNE 2015</div>
             </div>
             
-             <div class="fixture_content fixture_font teams_select">
+             <div id="_teams_data" class="fixture_content fixture_font teams_select">
             
             <div class="prediction_box">
                 <div class="prediction_heading">PREMIER LEAGUE</div>
@@ -366,21 +366,26 @@
       
     <div data-role="page" id="stats_team" data-theme="a">
 		<div data-role="header" data-position="inline">
-			<span id="header_logo" class="my_font large_font">The Form Book Predicts</span><br/>
-            <span id="header_logo" class="my_font small_font">The Premier League, Football League &amp; Conference</span>
-         <a href="#teams_menu_panel" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-nodisc-icon noiconbg ui-btn-icon-right ui-icon-bars ui-btn-icon-notext" >Menu</a>
+			<span class="header_logo my_font large_font">The Form Book Predicts</span><br/>
+            <span class="header_logo my_font small_font">The Premier League, Football League &amp; Conference</span>
+         <a href="#my_team_menu_panel" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-nodisc-icon noiconbg ui-btn-icon-right ui-icon-bars ui-btn-icon-notext" >Menu</a>
 		</div>
-		<div data-role="content" id="fixtures_content"  data-theme="a">
+		<div data-role="content" id="stats_content" data-theme="a">
 			
             <div class="split_box my_font">
             	<div class="left_div content_heading "><a href="#"  data-rel="popup" data-transition="pop"  class="ui-btn ui-btn-inline ui-mini ui-nodisc-icon noiconbg ui-icon-carat-l ui-btn-icon-notext"> </a><span id="teams_title_link">TEAMS</span></div>
                 <div class="right_div content_sub_heading">SATURDAY, 13th JUNE 2015</div>
             </div>
             <div class="clear_line"></div>
-            <div class="three_split smallfont_gap">FIXTURES</div><div class="three_split">SUNDERLAND</div><div class="three_split smallfont_gap">RESULTS</div>
-             <div class="fixture_content fixture_font teams_select">
+            <div id="team_fixtures_head" class="three_split smallfont_gap underline_text" onClick="show_fixtures_team()">FIXTURES</div><div class="three_split"><span id="team_name_heading">SUNDERLAND</span></div><div id="team_results_head" class="three_split smallfont_gap" onClick="show_results_team()">RESULTS</div>
+             <div id="_stats_data" class="fixture_content fixture_font teams_select">
             
-          
+          <div class="new_date">SATURDAY, 13th JUNE 2015</div>
+                <span class="fixture"><div class="fixture_home_team highlight_team">SUNDERLAND</div><div class="fixture_time hightlight_win">3 - 0</div><div class="fixture_away_team">NEWCASTLE</div></span>
+                <div class="new_date">SATURDAY, 13th JUNE 2015</div>
+                <span class="fixture"><div class="fixture_home_team">LIVERPOOL</div><div class="fixture_time">12:45</div><div class="fixture_away_team highlight_team">SUNDERLAND</div></span>
+                <div class="new_date">SATURDAY, 13th JUNE 2015</div>
+                <span class="fixture"><div class="fixture_home_team highlight_team">SUNDERLAND</div><div class="fixture_time hightlight_loss">0 - 2</div><div class="fixture_away_team">WATFORD</div></span>
             
             
             
@@ -389,7 +394,7 @@
             
 		</div>
         </div>
-        <div data-role="panel" data-position="right" data-position-fixed="false" data-display="overlay" id="teams_menu_panel" data-theme="b">
+        <div data-role="panel" data-position="right" data-position-fixed="false" data-display="overlay" id="my_team_menu_panel" data-theme="b">
                             <!-- panel content goes here -->
               <center>Navigation</center>
             				<div class="panel_menu_icon_wrapper" onClick="panel_change_page('prediction')" ><div class="panel_menu_img"><img src="imgs/prediction.png" /></div><div class="panel_menu_text">PREDICTIONS</div></div>
