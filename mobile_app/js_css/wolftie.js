@@ -11,7 +11,9 @@
 // test creating a db of bigger than 2 * 1024 * 1024
 var db = openDatabase('wolftie_predicts_db', '1.0', 'Wolftie Predicts', 5 * 1024 * 1024);
 db.transaction(function (tx) {				
-		tx.executeSql('DROP TABLE premier_fixtures');
+		
+		tx.executeSql('CREATE TABLE IF NOT EXISTS time_log (tid INTEGER, data_time TEXT,  PRIMARY KEY(tid))');
+				tx.executeSql('INSERT INTO time_log (tid, data_time) VALUES (1, "Sat Jul 04 2015 15:27:31 GMT+0100 (GMT Daylight Time)")');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS premier_leaguetable (Position INTEGER, Team UNIQUE, Played INTEGER, Won INTEGER, Drawn INTEGER, Lost INTEGER, Points INTEGER)');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS champ_leaguetable (Position INTEGER, Team UNIQUE, Played INTEGER, Won INTEGER, Drawn INTEGER, Lost INTEGER, Points INTEGER)');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS league1_leaguetable (Position INTEGER, Team UNIQUE, Played INTEGER, Won INTEGER, Drawn INTEGER, Lost INTEGER, Points INTEGER)');
@@ -24,11 +26,11 @@ db.transaction(function (tx) {
 		tx.executeSql('CREATE TABLE IF NOT EXISTS league2_fixtures (Match_Date TEXT, Home_Team TEXT, Away_Team TEXT, Kickoff TEXT, p_h_goals INTEGER, p_a_goals INTEGER, PRIMARY KEY(Match_Date,Home_Team,Away_Team))');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS conference_fixtures (Match_Date TEXT, Home_Team TEXT, Away_Team TEXT, Kickoff TEXT, p_h_goals INTEGER, p_a_goals INTEGER, PRIMARY KEY(Match_Date,Home_Team,Away_Team))');
 		
-		tx.executeSql('CREATE TABLE IF NOT EXISTS premier_season2014 (Home_Team TEXT, Away_Team TEXT, Home_Goals INTEGER, Away_Goals INTEGER, Match_Date TEXT, PRIMARY KEY(Match_Date,Home_Team,Away_Team))');
-		tx.executeSql('CREATE TABLE IF NOT EXISTS champ_season2014 (Home_Team TEXT, Away_Team TEXT, Home_Goals INTEGER, Away_Goals INTEGER, Match_Date TEXT, PRIMARY KEY(Match_Date,Home_Team,Away_Team))');
-		tx.executeSql('CREATE TABLE IF NOT EXISTS league1_season2014 (Home_Team TEXT, Away_Team TEXT, Home_Goals INTEGER, Away_Goals INTEGER, Match_Date TEXT, PRIMARY KEY(Match_Date,Home_Team,Away_Team))');
-		tx.executeSql('CREATE TABLE IF NOT EXISTS league2_season2014 (Home_Team TEXT, Away_Team TEXT, Home_Goals INTEGER, Away_Goals INTEGER, Match_Date TEXT, PRIMARY KEY(Match_Date,Home_Team,Away_Team))');
-		tx.executeSql('CREATE TABLE IF NOT EXISTS conference_season2014 (Home_Team TEXT, Away_Team TEXT, Home_Goals INTEGER, Away_Goals INTEGER, Match_Date TEXT, PRIMARY KEY(Match_Date,Home_Team,Away_Team))');
+		tx.executeSql('CREATE TABLE IF NOT EXISTS premier_season2015 (Home_Team TEXT, Away_Team TEXT, Home_Goals INTEGER, Away_Goals INTEGER, Match_Date TEXT, PRIMARY KEY(Match_Date,Home_Team,Away_Team))');
+		tx.executeSql('CREATE TABLE IF NOT EXISTS champ_season2015 (Home_Team TEXT, Away_Team TEXT, Home_Goals INTEGER, Away_Goals INTEGER, Match_Date TEXT, PRIMARY KEY(Match_Date,Home_Team,Away_Team))');
+		tx.executeSql('CREATE TABLE IF NOT EXISTS league1_season2015 (Home_Team TEXT, Away_Team TEXT, Home_Goals INTEGER, Away_Goals INTEGER, Match_Date TEXT, PRIMARY KEY(Match_Date,Home_Team,Away_Team))');
+		tx.executeSql('CREATE TABLE IF NOT EXISTS league2_season2015 (Home_Team TEXT, Away_Team TEXT, Home_Goals INTEGER, Away_Goals INTEGER, Match_Date TEXT, PRIMARY KEY(Match_Date,Home_Team,Away_Team))');
+		tx.executeSql('CREATE TABLE IF NOT EXISTS conference_season2015 (Home_Team TEXT, Away_Team TEXT, Home_Goals INTEGER, Away_Goals INTEGER, Match_Date TEXT, PRIMARY KEY(Match_Date,Home_Team,Away_Team))');
 	
 	
 		
@@ -42,7 +44,7 @@ db.transaction(function (tx) {
 
 
 function league_table_json(league){
-	$.getJSON("json_league_table.php", {league:league})
+	$.getJSON("http://api.wolfstudioapps.co.uk/apps/bet_penguin/mobile_files/json_league_table.php", {league:league})
 	.done(function( json ) {
     	//console.log( "JSON Data: " + json.position);
 		db.transaction(function (tx) {	
@@ -66,7 +68,7 @@ function league_table_json(league){
 
 
 function fixtures_json(league){
-	$.getJSON("json_fixtures.php", {league:league})
+	$.getJSON("http://api.wolfstudioapps.co.uk/apps/bet_penguin/mobile_files/json_fixtures.php", {league:league})
 	.done(function( json ) {
     	//console.log( "JSON Data: " + json.position);
 		db.transaction(function (tx) {	
@@ -88,17 +90,17 @@ function fixtures_json(league){
 }
 
 function season_json(league){
-	$.getJSON("json_season.php", {league:league})
+	$.getJSON("http://api.wolfstudioapps.co.uk/apps/bet_penguin/mobile_files/json_season.php", {league:league})
 	.done(function( json ) {
 		db.transaction(function (tx) {	
-			tx.executeSql('DELETE FROM '+league+'_season2014');
+			tx.executeSql('DELETE FROM '+league+'_season2015');
 			});
     	//console.log( "JSON Data: " + json.position);
 		db.transaction(function (tx) {	
 		$.each(json,function(key,val){
 			//console.log(val.Home_Team + " " + val.Home_Goals + " - " + val.Away_Goals + " " + val.Away_Team +" "+val.date);
 			
-			tx.executeSql('INSERT INTO '+league+'_season2014 (Home_Team, Away_Team, Home_Goals, Away_Goals, Match_Date) VALUES ("'+val.Home_Team+'", "'+val.Away_Team+'", '+val.Home_Goals+', '+val.Away_Goals+', "'+val.date+'")');
+			tx.executeSql('INSERT INTO '+league+'_season2015 (Home_Team, Away_Team, Home_Goals, Away_Goals, Match_Date) VALUES ("'+val.Home_Team+'", "'+val.Away_Team+'", '+val.Home_Goals+', '+val.Away_Goals+', "'+val.date+'")');
 			});
 		});
 		console.log("Success json season for "+league);
@@ -107,4 +109,51 @@ function season_json(league){
 		var err = textStatus + ", " + error;
 		console.log( "Request Failed: " + err );
 	});
+}
+
+function check_time_log(){
+	db.transaction(function (tx) {	
+			tx.executeSql('SELECT data_time FROM time_log WHERE tid=1', [], function(txs, results){
+			var tabledata = results.rows.item(0);
+			data_time = tabledata.data_time;
+			var user_time = new Date(data_time); //user time
+			var today_time= new Date(); //today
+			var gap_time = today_time.getTime()-user_time.getTime();
+			if(gap_time>3600000){
+				//3600000 milliseconds in one hour
+				console.log("data needs refreshing");
+				refresh_table_data(today_time);
+			}else{
+				console.log("data is up to date");
+				
+				load_in_data_main('premier');
+			}
+			});
+	});
+		
+}
+function refresh_table_data(time){
+	
+	var premier_table = league_table_json('premier');
+	var champ_table = league_table_json('champ');
+	var league1_table = league_table_json('league1');
+	var league2_table = league_table_json('league2');
+	var conference_table = league_table_json('conference');
+	
+	var premier_fixtures = fixtures_json('premier');
+	var champ_fixtures = fixtures_json('champ');
+	var league1_fixtures = fixtures_json('league1');
+	var league2_fixtures = fixtures_json('league2');
+	var conference_fixtures = fixtures_json('conference');
+	
+	var premier_season = season_json('premier');
+	var champ_season = season_json('champ');
+	var league1_season = season_json('league1');
+	var league2_season = season_json('league2');
+	var conference_season = season_json('conference');
+	db.transaction(function (tx) {	
+		tx.executeSql('UPDATE time_log SET data_time="'+time.toString()+'" WHERE tid=1');
+	});
+	
+	load_in_data_main('premier');
 }
