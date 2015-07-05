@@ -57,6 +57,7 @@
                             <div class="panel_menu_icon_wrapper" onClick="panel_change_page('results')" ><div class="panel_menu_img"><img src="imgs/results.png" /></div><div class="panel_menu_text">RESULTS</div></div>
                             <div class="panel_menu_icon_wrapper" onClick="panel_change_page('tables')" ><div class="panel_menu_img"><img src="imgs/league.png" /></div><div class="panel_menu_text">TABLES</div></div>
                             <div class="panel_menu_icon_wrapper" onClick="panel_change_page('teams')" ><div class="panel_menu_img"><img src="imgs/teams.png" /></div><div class="panel_menu_text">TEAMS</div></div>
+                            <div class="panel_menu_icon_wrapper" onClick="refresh_data()" ><div class="panel_menu_img"><img src="imgs/refresh.png" /></div><div class="panel_menu_text">REFRESH DATA</div></div>
                             <div class="clear_line"> <p class="updated_text"></p></div>
                            
             </div><!-- /panel -->
@@ -125,6 +126,7 @@
                             <div class="panel_menu_icon_wrapper" onClick="panel_change_page('results')" ><div class="panel_menu_img"><img src="imgs/results.png" /></div><div class="panel_menu_text">RESULTS</div></div>
                             <div class="panel_menu_icon_wrapper" onClick="panel_change_page('tables')" ><div class="panel_menu_img"><img src="imgs/league.png" /></div><div class="panel_menu_text">TABLES</div></div>
                             <div class="panel_menu_icon_wrapper" onClick="panel_change_page('teams')" ><div class="panel_menu_img"><img src="imgs/teams.png" /></div><div class="panel_menu_text">TEAMS</div></div>
+                             <div class="panel_menu_icon_wrapper" onClick="refresh_data()" ><div class="panel_menu_img"><img src="imgs/refresh.png" /></div><div class="panel_menu_text">REFRESH DATA</div></div>
                             <div class="clear_line"> <p class="updated_text"></p></div>
             </div><!-- /panel -->
 	</div><!-- /results -->
@@ -198,6 +200,7 @@
                             <div class="panel_menu_icon_wrapper" onClick="panel_change_page('results')" ><div class="panel_menu_img"><img src="imgs/results.png" /></div><div class="panel_menu_text">RESULTS</div></div>
                             <div class="panel_menu_icon_wrapper" onClick="panel_change_page('tables')" ><div class="panel_menu_img"><img src="imgs/league.png" /></div><div class="panel_menu_text">TABLES</div></div>
                             <div class="panel_menu_icon_wrapper" onClick="panel_change_page('teams')" ><div class="panel_menu_img"><img src="imgs/teams.png" /></div><div class="panel_menu_text">TEAMS</div></div>
+                            <div class="panel_menu_icon_wrapper" onClick="refresh_data()" ><div class="panel_menu_img"><img src="imgs/refresh.png" /></div><div class="panel_menu_text">REFRESH DATA</div></div>
                             <div class="clear_line"> <p class="updated_text"></p></div>
             </div><!-- /panel -->
 	</div><!-- /tables -->
@@ -222,51 +225,7 @@
             </div>
             
             
-             <div id="_prediction_data" class="fixture_content fixture_font">
-            
-            <div class="prediction_box">
-            <div class="prediction_heading">PREMIER LEAGUE</div>
-            <div class="prediction_title">PREDICTION</div>
-            <span class="fixture"><div class="fixture_home_team">WEST HAM</div><div class="fixture_time">0 - 0</div><div class="fixture_away_team">MAN CITY</div></span>
-             <span class="fixture"><div class="fixture_home_team">SUNDERLAND</div><div class="fixture_time">3 - 1</div><div class="fixture_away_team">TOTTENHAM</div></span>
-              <span class="fixture"><div class="fixture_home_team">NEWCASTLE</div><div class="fixture_time">2 - 2</div><div class="fixture_away_team">CRYSTAL PALACE</div></span>
-            </div>
-            
-            <div class="prediction_box">
-            <div class="prediction_heading">CHAMPIONSHIP</div>
-            <div class="prediction_title">PREDICTION</div>
-             <span class="fixture"><div class="fixture_home_team">BLACKBURN</div><div class="fixture_time">0 - 0</div><div class="fixture_away_team">BOTLON</div></span>
-              <span class="fixture"><div class="fixture_home_team">ROTHERHAM</div><div class="fixture_time">0 - 0</div><div class="fixture_away_team">BRIMINGHAM</div></span>
-               <span class="fixture"><div class="fixture_home_team">MIDDLESBOROGH</div><div class="fixture_time">0 - 0</div><div class="fixture_away_team">LEEDS</div></span>
-            </div>
-            
-            <div class="prediction_box">
-            <div class="prediction_heading">LEAGUE 1</div>
-            <div class="prediction_title">PREDICTION</div>
-             <span class="fixture"><div class="fixture_home_team">SOUTHEND</div><div class="fixture_time">0 - 0</div><div class="fixture_away_team">FLEETWOOD</div></span>
-              <span class="fixture"><div class="fixture_home_team">SHEFF UTD</div><div class="fixture_time">0 - 0</div><div class="fixture_away_team">WIGAN</div></span>
-               <span class="fixture"><div class="fixture_home_team">BURTON</div><div class="fixture_time">0 - 0</div><div class="fixture_away_team">BLACKPOOL</div></span>
-            </div>
-            
-            <div class="prediction_box">
-            <div class="prediction_heading">LEAGUE 2</div>
-            <div class="prediction_title">PREDICTION</div>
-             <span class="fixture"><div class="fixture_home_team">BARNET</div><div class="fixture_time">0 - 0</div><div class="fixture_away_team">OXFORD UTD</div></span>
-              <span class="fixture"><div class="fixture_home_team">HARTLEPOOL</div><div class="fixture_time">0 - 0</div><div class="fixture_away_team">DAG &amp; RED</div></span>
-               <span class="fixture"><div class="fixture_home_team">CARLISLE</div><div class="fixture_time">0 - 0</div><div class="fixture_away_team">PLYMOUTH</div></span>
-            </div>
-            
-            <div class="prediction_box">
-            <div class="prediction_heading">CONFERENCE</div>
-            <div class="prediction_title">PREDICTION</div>
-             <span class="fixture"><div class="fixture_home_team">GATESHEAD</div><div class="fixture_time">0 - 0</div><div class="fixture_away_team">WOKING</div></span>
-              <span class="fixture"><div class="fixture_home_team">FOREST GREEN</div><div class="fixture_time">0 - 0</div><div class="fixture_away_team">DOVER</div></span>
-               <span class="fixture"><div class="fixture_home_team">BRAINTREE</div><div class="fixture_time">0 - 0</div><div class="fixture_away_team">CHESTER</div></span>
-            </div>
-            
-            
-       
-            </div>
+             <div id="_prediction_data" class="fixture_content fixture_font"></div>
             
             
 		</div>
@@ -279,6 +238,7 @@
                             <div class="panel_menu_icon_wrapper" onClick="panel_change_page('results')" ><div class="panel_menu_img"><img src="imgs/results.png" /></div><div class="panel_menu_text">RESULTS</div></div>
                             <div class="panel_menu_icon_wrapper" onClick="panel_change_page('tables')" ><div class="panel_menu_img"><img src="imgs/league.png" /></div><div class="panel_menu_text">TABLES</div></div>
                             <div class="panel_menu_icon_wrapper" onClick="panel_change_page('teams')" ><div class="panel_menu_img"><img src="imgs/teams.png" /></div><div class="panel_menu_text">TEAMS</div></div>
+                             <div class="panel_menu_icon_wrapper" onClick="refresh_data()" ><div class="panel_menu_img"><img src="imgs/refresh.png" /></div><div class="panel_menu_text">REFRESH DATA</div></div>
                             <div class="clear_line"> <p class="updated_text"></p></div>
             </div><!-- /panel -->
 	</div><!-- /prediction -->
@@ -351,6 +311,7 @@
                             <div class="panel_menu_icon_wrapper" onClick="panel_change_page('results')" ><div class="panel_menu_img"><img src="imgs/results.png" /></div><div class="panel_menu_text">RESULTS</div></div>
                             <div class="panel_menu_icon_wrapper" onClick="panel_change_page('tables')" ><div class="panel_menu_img"><img src="imgs/league.png" /></div><div class="panel_menu_text">TABLES</div></div>
                             <div class="panel_menu_icon_wrapper" onClick="panel_change_page('teams')" ><div class="panel_menu_img"><img src="imgs/teams.png" /></div><div class="panel_menu_text">TEAMS</div></div>
+                             <div class="panel_menu_icon_wrapper" onClick="refresh_data()" ><div class="panel_menu_img"><img src="imgs/refresh.png" /></div><div class="panel_menu_text">REFRESH DATA</div></div>
                             <div class="clear_line"> <p class="updated_text"></p></div>
             </div><!-- /panel -->
 	</div><!-- /prediction -->
@@ -397,6 +358,7 @@
                             <div class="panel_menu_icon_wrapper" onClick="panel_change_page('results')" ><div class="panel_menu_img"><img src="imgs/results.png" /></div><div class="panel_menu_text">RESULTS</div></div>
                             <div class="panel_menu_icon_wrapper" onClick="panel_change_page('tables')" ><div class="panel_menu_img"><img src="imgs/league.png" /></div><div class="panel_menu_text">TABLES</div></div>
                             <div class="panel_menu_icon_wrapper" onClick="panel_change_page('teams')" ><div class="panel_menu_img"><img src="imgs/teams.png" /></div><div class="panel_menu_text">TEAMS</div></div>
+                             <div class="panel_menu_icon_wrapper" onClick="refresh_data()" ><div class="panel_menu_img"><img src="imgs/refresh.png" /></div><div class="panel_menu_text">REFRESH DATA</div></div>
                             <div class="clear_line"> <p class="updated_text"></p></div>
             </div><!-- /panel -->
 	</div><!-- /stats_team -->

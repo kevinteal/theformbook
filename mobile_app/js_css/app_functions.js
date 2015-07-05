@@ -29,18 +29,9 @@ function load_in_data_main(league){
 	$(".loading_the_data").css("display","block");
 	//document.getElementById("_fixture_data").innerHTML="Loading Fixtures";
 	
-	var d = new Date();
-	var year = d.getFullYear();
-	var month = d.getMonth()+1;
-	var day = d.getDate();
-	if(month.toString().length==1){
-		month = "0"+month;
-	}
-	if(day.toString().length==1){
-		day = "0"+day;
-	}
-	var today = ""+year+"-"+month+"-"+day+"";
-	console.log("today is "+today);
+	
+	
+	var today = get_today();
 	
 	db.transaction(function (tx) {	
 	tx.executeSql(' SELECT * FROM '+league+'_fixtures where Match_Date>"'+today+'" order by Match_Date, Kickoff asc ', [], function(tx, results){
@@ -114,6 +105,9 @@ function show_fixtures_team(){
 }
 
 function prediction_setup(){
+	var data_in = document.getElementById("_prediction_data").innerHTML;
+	//console.log(data_in);
+	if(data_in==""){
 	document.getElementById("_prediction_data").innerHTML= "";
 	$(".loading_the_data").css("display","block");
 	
@@ -123,14 +117,20 @@ function prediction_setup(){
 		var leagues = ["premier","champ","league1","league2","conference"];
 		curr_league=0;
 		
+		
+		var today = get_today();
+		
 		for(var x = 0; x<leagues.length; x++){
 		
-		
-		tx.executeSql(' SELECT * FROM '+leagues[x]+'_fixtures where Match_Date="2015-08-08" order by Kickoff asc ', [], function(tx, results){
+		tx.executeSql(' SELECT * FROM '+leagues[x]+'_fixtures where Match_Date="'+today+'" order by Kickoff asc ', [], function(tx, results){
 			var league_title = leagues_title[curr_league];
 			curr_league++;
 			var len = results.rows.length, i;
-			content += "<div class='prediction_box'><div class='prediction_heading'>"+league_title.toUpperCase()+"</div><div class='prediction_title'>PREDICTION</div>";
+			
+			if(len>0){
+				content += "<div class='prediction_box'><div class='prediction_heading'>"+league_title.toUpperCase()+"</div><div class='prediction_title'>PREDICTION</div>";
+			}
+			
 			for(i=0;i<len;i++){	
 				var fixture = results.rows.item(i);
 				if(fixture.p_h_goals===null) fixture.p_h_goals = " ";
@@ -139,9 +139,19 @@ function prediction_setup(){
 				content+=data;
 			}
 			
+			
+			
 			content+="</div>";//close prediction box.
 		document.getElementById("_prediction_data").innerHTML += content;
 		content="";//reset content
+		
+		if(curr_league==5){
+			// counter gets +1 after conference above
+			//console.log(league_title);
+			if(document.getElementById("_prediction_data").innerHTML==""){
+				document.getElementById("_prediction_data").innerHTML="No Fixtures Today. Predictions Are Available After 9am On Fixture Days.";
+			}
+		}
 			
 		});
 		
@@ -154,12 +164,42 @@ function prediction_setup(){
 			
 	
 	
-	
+	}//else already have processed the page
 	
 	
 	
 }
 
+function get_today(){
+	var d = new Date();
+	var year = d.getFullYear();
+	var month = d.getMonth()+1;
+	var day = d.getDate();
+	if(month.toString().length==1){
+		month = "0"+month;
+	}
+	if(day.toString().length==1){
+		day = "0"+day;
+	}
+	var today = ""+year+"-"+month+"-"+day+"";
+	//console.log("today is "+today);
+	return today;
+}
+
+function refresh_data(){
+	//send user back to home page for clean reload of app data
+	$("#menu_panel").panel("close");
+	$( ":mobile-pagecontainer" ).pagecontainer( "change", "#fixtures_page", { transition: "slide" } );
+	$(".loading_the_data").css("display","block");
+	document.getElementById("_prediction_data").innerHTML="";
+	db.transaction(function (tx) {	
+			tx.executeSql('UPDATE time_log SET data_time="Sat Jul 04 2015 15:27:31 GMT+0100 (GMT Daylight Time)" WHERE tid=1');
+			var mytime = check_time_log();
+	});
+	
+	//also make predictions page blank
+	
+}
 
 function panel_change_page(page){
 	console.log("goto "+page);
