@@ -113,7 +113,7 @@ function season_json(league){
 
 function check_time_log(){
 	db.transaction(function (tx) {	
-			tx.executeSql('SELECT data_time FROM time_log WHERE tid=1', [], function(txs, results){
+			tx.executeSql('SELECT data_time FROM time_log WHERE tid=1', [], function(tx, results){
 			var tabledata = results.rows.item(0);
 			data_time = tabledata.data_time;
 			var user_time = new Date(data_time); //user time
@@ -123,9 +123,10 @@ function check_time_log(){
 				//3600000 milliseconds in one hour
 				console.log("data needs refreshing");
 				refresh_table_data(today_time);
+				updated_text_notify(today_time);
 			}else{
 				console.log("data is up to date");
-				
+				updated_text_notify(user_time);
 				load_in_data_main('premier');
 			}
 			});
@@ -153,6 +154,7 @@ function refresh_table_data(time){
 	var conference_season = season_json('conference');
 	db.transaction(function (tx) {	
 		tx.executeSql('UPDATE time_log SET data_time="'+time.toString()+'" WHERE tid=1');
+
 	});
 	
 	load_in_data_main('premier');

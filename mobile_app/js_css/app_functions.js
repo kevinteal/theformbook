@@ -1,5 +1,7 @@
 // JavaScript Document
 var date_options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+var curr_league=0;
+var leagues_title = ["premier league","championship","league 1","league 2","conference"];
 $(document).ready(function(e) {
    $(".loading_the_data").css("display","block");
     $.ajaxSetup({
@@ -9,13 +11,19 @@ $(document).ready(function(e) {
 	
 	//page dates .toLocaleDateString('en-US', date_options);
 	var mydate_header = new Date();
-	document.getElementsByClassName("mydate_head").innerHTML="helo";
 	var mydates = document.getElementsByClassName("mydate_head");
 		for (var i = 0; i < mydates.length; i++) {
 			mydates[i].innerHTML=mydate_header.toLocaleDateString('en-US', date_options).toUpperCase();
 		}
+		
 	
 });
+function updated_text_notify(time){
+	var updated_text = document.getElementsByClassName("updated_text");
+		for (var i = 0; i < updated_text.length; i++) {
+			updated_text[i].innerHTML="UPDATED AT: "+time.toString().toUpperCase();
+		}
+}
 
 function load_in_data_main(league){
 	$(".loading_the_data").css("display","block");
@@ -23,7 +31,7 @@ function load_in_data_main(league){
 	
 	var d = new Date();
 	var year = d.getFullYear();
-	var month = d.getMonth();
+	var month = d.getMonth()+1;
 	var day = d.getDate();
 	if(month.toString().length==1){
 		month = "0"+month;
@@ -35,13 +43,13 @@ function load_in_data_main(league){
 	console.log("today is "+today);
 	
 	db.transaction(function (tx) {	
-	tx.executeSql(' SELECT * FROM '+league+'_fixtures where Match_Date>"'+today+'" order by Match_Date, Kickoff asc ', [], function(txs, results){
+	tx.executeSql(' SELECT * FROM '+league+'_fixtures where Match_Date>"'+today+'" order by Match_Date, Kickoff asc ', [], function(tx, results){
 			var len = results.rows.length, i;
 			var fixture_date_heading = 0;
-			var content = "";
+			var content = " ";
 			for(i=0;i<len;i++){	
 				var fixture = results.rows.item(i);
-				console.log(fixture.Match_Date+" "+fixture.Home_Team+" "+fixture.Away_Team+" "+fixture.Kickoff);
+				//console.log(fixture.Match_Date+" "+fixture.Home_Team+" "+fixture.Away_Team+" "+fixture.Kickoff);
 				
 				
 				if(fixture_date_heading!=fixture.Match_Date){
@@ -105,7 +113,52 @@ function show_fixtures_team(){
 	$("#team_results_head").removeClass("underline_text");
 }
 
-
+function prediction_setup(){
+	document.getElementById("_prediction_data").innerHTML= "";
+	$(".loading_the_data").css("display","block");
+	
+	var content="";
+	
+	db.transaction(function (tx) {	
+		var leagues = ["premier","champ","league1","league2","conference"];
+		curr_league=0;
+		
+		for(var x = 0; x<leagues.length; x++){
+		
+		
+		tx.executeSql(' SELECT * FROM '+leagues[x]+'_fixtures where Match_Date="2015-08-08" order by Kickoff asc ', [], function(tx, results){
+			var league_title = leagues_title[curr_league];
+			curr_league++;
+			var len = results.rows.length, i;
+			content += "<div class='prediction_box'><div class='prediction_heading'>"+league_title.toUpperCase()+"</div><div class='prediction_title'>PREDICTION</div>";
+			for(i=0;i<len;i++){	
+				var fixture = results.rows.item(i);
+				if(fixture.p_h_goals===null) fixture.p_h_goals = " ";
+				if(fixture.p_a_goals===null) fixture.p_a_goals = " ";
+				var data = "<span class='fixture'><div class='fixture_home_team'>"+fixture.Home_Team+"</div><div class='fixture_time'>"+fixture.p_h_goals+" - "+fixture.p_a_goals+"</div><div class='fixture_away_team'>"+fixture.Away_Team+"</div></span>";
+				content+=data;
+			}
+			
+			content+="</div>";//close prediction box.
+		document.getElementById("_prediction_data").innerHTML += content;
+		content="";//reset content
+			
+		});
+		
+		
+		}
+		
+		
+		$(".loading_the_data").css("display","none");
+	});
+			
+	
+	
+	
+	
+	
+	
+}
 
 
 function panel_change_page(page){
@@ -113,4 +166,8 @@ function panel_change_page(page){
 	//$("#menu_panel").panel("close");
 //	$.mobile.navigate( "#"+page+"_page" );
 	$( ":mobile-pagecontainer" ).pagecontainer( "change", "#"+page+"_page", { transition: "slide" } );
+	if(page=="prediction"){
+		prediction_setup();
+	}
+	
 }
