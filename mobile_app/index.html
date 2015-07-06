@@ -20,15 +20,16 @@
 		</div>
 		<div data-role="content" id="fixtures_content" data-theme="a">
 			
-            <div class="loading_the_data">LOADING DATA</div>
-            
+            <div id="main_loading_screen" class="loading_the_data"><span id="loading_text">LOADING DATA...</span></div>
+             <div id="ajax_loading_screen" class="loading_the_data"><span id="loading_text">LOADING DATA...</span></div>
+             
             <div class="split_box my_font">
             	<div class="left_div content_heading ">FIXTURES</div>
                 <div class="right_div content_sub_heading mydate_head">SATURDAY, 13th JUNE 2015</div>
             </div>
             
             
-            <div class="sub_heading my_font small_font"><span id="fixtures_list_heading">PREMIER LEAGUE</span><a href="#fixtures_popup_leagues"  data-rel="popup" data-transition="pop"  class="ui-btn ui-btn-inline ui-mini ui-nodisc-icon noiconbg ui-icon-carat-d ui-btn-icon-notext" >Leagues</a>
+            <div class="sub_heading my_font small_font"><span id="fixtures_list_heading" data-leaguename="prem">PREMIER LEAGUE</span><a href="#fixtures_popup_leagues"  data-rel="popup" data-transition="pop"  class="ui-btn ui-btn-inline ui-mini ui-nodisc-icon noiconbg ui-icon-carat-d ui-btn-icon-notext" >Leagues</a>
                
              <div data-role="popup" id="fixtures_popup_leagues" class="ui-content" data-theme="b" data-arrow="t">
              <p><ul data-role="listview" >
@@ -42,9 +43,7 @@
     
             </div>
             
-            <div id="_fixture_data" class="fixture_content fixture_font">
-     				<p></p>
-            </div>
+            <div id="_fixture_data" class="fixture_content fixture_font"><p></p></div>
             
             
 		</div>
@@ -218,7 +217,7 @@
          <a href="#prediction_menu_panel" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-nodisc-icon noiconbg ui-btn-icon-right ui-icon-bars ui-btn-icon-notext" >Menu</a>
 		</div>
 		<div data-role="content" id="prediction_content" data-theme="a">
-			
+			<div id="prediction_loading_screen" class="loading_the_data"><span id="loading_text">LOADING DATA</span></div>
             <div class="split_box my_font">
             	<div class="left_div content_heading ">PREDICTIONS</div>
                 <div class="right_div content_sub_heading mydate_head">SATURDAY, 13th JUNE 2015</div>

@@ -3,12 +3,10 @@ var date_options = { weekday: 'long', year: 'numeric', month: 'long', day: 'nume
 var curr_league=0;
 var leagues_title = ["premier league","championship","league 1","league 2","conference"];
 $(document).ready(function(e) {
-   $(".loading_the_data").css("display","block");
-    $.ajaxSetup({
-        async: false
-    });
-	var mytime = check_time_log();
-	
+   $("#ajax_loading_screen").css("display","block");
+    $("#main_loading_screen").css("display","block");
+   
+	var mytime = check_time_log();//loading app only get fixtures. //will get tables+season when clicking on them 
 	//page dates .toLocaleDateString('en-US', date_options);
 	var mydate_header = new Date();
 	var mydates = document.getElementsByClassName("mydate_head");
@@ -18,6 +16,7 @@ $(document).ready(function(e) {
 		
 	
 });
+
 function updated_text_notify(time){
 	var updated_text = document.getElementsByClassName("updated_text");
 		for (var i = 0; i < updated_text.length; i++) {
@@ -26,13 +25,13 @@ function updated_text_notify(time){
 }
 
 function load_in_data_main(league){
-	$(".loading_the_data").css("display","block");
+	$("#main_loading_screen").css("display","block");
 	//document.getElementById("_fixture_data").innerHTML="Loading Fixtures";
-	
-	
-	
+
 	var today = get_today();
-	
+	var data_in=document.getElementById("_fixture_data").innerHTML;
+	//if equal to p tags then nothing loaded so load in, else already loaded it
+	if(data_in=="<p></p>"){
 	db.transaction(function (tx) {	
 	tx.executeSql(' SELECT * FROM '+league+'_fixtures where Match_Date>"'+today+'" order by Match_Date, Kickoff asc ', [], function(tx, results){
 			var len = results.rows.length, i;
@@ -57,10 +56,15 @@ function load_in_data_main(league){
 				document.getElementById("_fixture_data").innerHTML = content;
 												
 			}
-			$(".loading_the_data").css("display","none");
+			$("#main_loading_screen").css("display","none");
 	});
 	});
-
+	}else{
+		//keep current info on screen.
+		//loaded show close loading
+		console.log("loaded fixtures already");
+		$("#main_loading_screen").css("display","none");
+	}
 	
 		
 }
@@ -69,6 +73,7 @@ function load_in_data_main(league){
 function fixture_list_mainpage(league){
 	$( "#fixtures_popup_leagues" ).popup( "close" );
 	var show_league=league;
+	
 	if(show_league == "premier") show_league="PREMIER LEAGUE";
 	if(show_league == "champ") show_league="CHAMPIONSHIP";
 	if(show_league == "league1") show_league="LEAGUE 1";
@@ -77,10 +82,17 @@ function fixture_list_mainpage(league){
 	
 	
 	
+	document.getElementById('fixtures_list_heading').setAttribute("data-leaguename",league);
 	document.getElementById('fixtures_list_heading').innerHTML=show_league;
+	document.getElementById("_fixture_data").innerHTML="<p></p>";
 	load_in_data_main(league);
 	
 }
+
+
+
+
+
 function results_list_mainpage(league){
 	document.getElementById('results_list_heading').innerHTML=league;
 	$( "#results_popup_leagues" ).popup( "close" );
@@ -109,7 +121,7 @@ function prediction_setup(){
 	//console.log(data_in);
 	if(data_in==""){
 	document.getElementById("_prediction_data").innerHTML= "";
-	$(".loading_the_data").css("display","block");
+	$("#prediction_loading_screen").css("display","block");
 	
 	var content="";
 	
@@ -148,8 +160,9 @@ function prediction_setup(){
 		if(curr_league==5){
 			// counter gets +1 after conference above
 			//console.log(league_title);
+			//if been thru all leagues and no data on screen no fixtures
 			if(document.getElementById("_prediction_data").innerHTML==""){
-				document.getElementById("_prediction_data").innerHTML="No Fixtures Today. Predictions Are Available After 9am On Fixture Days.";
+				document.getElementById("_prediction_data").innerHTML="No Fixtures Today. Predictions Are Available After 9am On Match Days.";
 			}
 		}
 			
@@ -159,7 +172,7 @@ function prediction_setup(){
 		}
 		
 		
-		$(".loading_the_data").css("display","none");
+		$("#prediction_loading_screen").css("display","none");
 	});
 			
 	
@@ -188,15 +201,18 @@ function get_today(){
 
 function refresh_data(){
 	//send user back to home page for clean reload of app data
-	$("#menu_panel").panel("close");
 	$( ":mobile-pagecontainer" ).pagecontainer( "change", "#fixtures_page", { transition: "slide" } );
-	$(".loading_the_data").css("display","block");
+	$("#fixture_menu_panel").panel("close");
+	$("#main_loading_screen").css("display","block");
+	$("#ajax_loading_screen").css("display","block");
+	setTimeout(function(){ 
 	document.getElementById("_prediction_data").innerHTML="";
+	document.getElementById("_fixture_data").innerHTML="<p></p>";
 	db.transaction(function (tx) {	
 			tx.executeSql('UPDATE time_log SET data_time="Sat Jul 04 2015 15:27:31 GMT+0100 (GMT Daylight Time)" WHERE tid=1');
 			var mytime = check_time_log();
 	});
-	
+	}, 3000);
 	//also make predictions page blank
 	
 }
@@ -208,6 +224,9 @@ function panel_change_page(page){
 	$( ":mobile-pagecontainer" ).pagecontainer( "change", "#"+page+"_page", { transition: "slide" } );
 	if(page=="prediction"){
 		prediction_setup();
+	}
+	if(page=="fixtures"){
+		//fixtures page is only page loaded on app start so no need to reload it.
 	}
 	
 }

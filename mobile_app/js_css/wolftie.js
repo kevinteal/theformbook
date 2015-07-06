@@ -12,8 +12,9 @@
 var db = openDatabase('wolftie_predicts_db', '1.0', 'Wolftie Predicts', 5 * 1024 * 1024);
 db.transaction(function (tx) {				
 		
-		tx.executeSql('CREATE TABLE IF NOT EXISTS time_log (tid INTEGER, data_time TEXT,  PRIMARY KEY(tid))');
-				tx.executeSql('INSERT INTO time_log (tid, data_time) VALUES (1, "Sat Jul 04 2015 15:27:31 GMT+0100 (GMT Daylight Time)")');
+		//tx.executeSql('DROP TABLE time_log');
+		tx.executeSql('CREATE TABLE IF NOT EXISTS time_log (tid INTEGER, data_time TEXT, PRIMARY KEY(tid))');
+		tx.executeSql('INSERT INTO time_log (tid,data_time) VALUES (1,"Sat Jul 04 2015 15:27:31 GMT+0100 (GMT Daylight Time)")');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS premier_leaguetable (Position INTEGER, Team UNIQUE, Played INTEGER, Won INTEGER, Drawn INTEGER, Lost INTEGER, Points INTEGER)');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS champ_leaguetable (Position INTEGER, Team UNIQUE, Played INTEGER, Won INTEGER, Drawn INTEGER, Lost INTEGER, Points INTEGER)');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS league1_leaguetable (Position INTEGER, Team UNIQUE, Played INTEGER, Won INTEGER, Drawn INTEGER, Lost INTEGER, Points INTEGER)');
@@ -39,14 +40,29 @@ db.transaction(function (tx) {
 		//if you need to remove a table, use sql ('show tables like 'tablename') if the result set returns a row then drop table code.
 });
 
+//counter to make sure everything has loaded before loading screen ends 
+var fixture_counter = 0;
+var season_counter = 0;
+var table_counter = 0;
 
+
+function hide_loading_screen(){
+	if(fixture_counter == 5 && season_counter== 5 && table_counter== 5){
+		$("#ajax_loading_screen").css("display","none");
+		//reset counters for user refresh of data
+		fixture_counter = 0;
+		season_counter = 0;
+		table_counter = 0;
+		$("#main_loading_screen").html("LOADING DATA");
+	}
+}
 
 
 
 function league_table_json(league){
 	$.getJSON("http://api.wolfstudioapps.co.uk/apps/bet_penguin/mobile_files/json_league_table.php", {league:league})
 	.done(function( json ) {
-    	//console.log( "JSON Data: " + json.position);
+		$("#main_loading_screen").html("LOADING DATA...<br/>"+league+" Table");
 		db.transaction(function (tx) {	
 			tx.executeSql('DELETE FROM '+league+'_leaguetable');
 			});
@@ -58,7 +74,13 @@ function league_table_json(league){
 			tx.executeSql('INSERT INTO '+league+'_leaguetable (Position, Team, Played, Won, Drawn, Lost, Points) VALUES ('+val.Position+', "'+val.Team+'", '+val.Played+', '+val.Won+', '+val.Drawn+', '+val.Lost+', '+val.Points+')');
 			});
 		});
+		
 		console.log("each league table done "+league);
+		table_counter++;
+		if(table_counter==5){
+			console.log("all tables loaded?");
+			hide_loading_screen();
+		}
 	  })
 	.fail(function( jqxhr, textStatus, error ) {
 		var err = textStatus + ", " + error;
@@ -70,7 +92,7 @@ function league_table_json(league){
 function fixtures_json(league){
 	$.getJSON("http://api.wolfstudioapps.co.uk/apps/bet_penguin/mobile_files/json_fixtures.php", {league:league})
 	.done(function( json ) {
-    	//console.log( "JSON Data: " + json.position);
+		$("#main_loading_screen").html("LOADING DATA...<br/>"+league+" Table");
 		db.transaction(function (tx) {	
 			tx.executeSql('DELETE FROM '+league+'_fixtures');
 			});
@@ -80,8 +102,18 @@ function fixtures_json(league){
 			
 			tx.executeSql('INSERT INTO '+league+'_fixtures (Match_Date, Home_Team, Away_Team, Kickoff, p_h_goals, p_a_goals) VALUES ("'+val.date+'", "'+val.Home_Team+'", "'+val.Away_Team+'", "'+val.Kickoff+'", '+val.p_h_goals+', '+val.p_a_goals+')');
 			});
+			
 		});
-		console.log("Success json fixtures for "+league);
+		
+		console.log("Success json fixtures for "+league+" fix counter: "+fixture_counter);
+		fixture_counter++;
+		if(fixture_counter==5){
+			console.log("all fixtures loaded?");
+			document.getElementById('fixtures_list_heading').setAttribute("data-leaguename","prem");
+			document.getElementById('fixtures_list_heading').innerHTML="PREMIER LEAGUE";
+			load_in_data_main('premier');
+			hide_loading_screen();
+		}
 	  })
 	.fail(function( jqxhr, textStatus, error ) {
 		var err = textStatus + ", " + error;
@@ -92,6 +124,7 @@ function fixtures_json(league){
 function season_json(league){
 	$.getJSON("http://api.wolfstudioapps.co.uk/apps/bet_penguin/mobile_files/json_season.php", {league:league})
 	.done(function( json ) {
+		$("#main_loading_screen").html("LOADING DATA...<br/>"+league+" Table");
 		db.transaction(function (tx) {	
 			tx.executeSql('DELETE FROM '+league+'_season2015');
 			});
@@ -104,6 +137,12 @@ function season_json(league){
 			});
 		});
 		console.log("Success json season for "+league);
+		season_counter++;
+		if(season_counter==5){
+			console.log("all seasons loaded?");
+			hide_loading_screen();
+		}
+		
 	  })
 	.fail(function( jqxhr, textStatus, error ) {
 		var err = textStatus + ", " + error;
@@ -112,6 +151,7 @@ function season_json(league){
 }
 
 function check_time_log(){
+	
 	db.transaction(function (tx) {	
 			tx.executeSql('SELECT data_time FROM time_log WHERE tid=1', [], function(tx, results){
 			var tabledata = results.rows.item(0);
@@ -122,40 +162,56 @@ function check_time_log(){
 			if(gap_time>3600000){
 				//3600000 milliseconds in one hour
 				console.log("data needs refreshing");
-				refresh_table_data(today_time);
-				updated_text_notify(today_time);
+				refresh_table_data(today_time,user_time);
+				
 			}else{
 				console.log("data is up to date");
+				$("#ajax_loading_screen").css("display","none");
 				updated_text_notify(user_time);
-				load_in_data_main('premier');
+				
+					//if clicking refresh data menu option then the fixtures page is shown, reset heading to prem
+					document.getElementById('fixtures_list_heading').setAttribute("data-leaguename","prem");
+					document.getElementById('fixtures_list_heading').innerHTML="PREMIER LEAGUE";
+					load_in_data_main('premier');
+				
 			}
 			});
 	});
 		
 }
-function refresh_table_data(time){
-	
-	var premier_table = league_table_json('premier');
-	var champ_table = league_table_json('champ');
-	var league1_table = league_table_json('league1');
-	var league2_table = league_table_json('league2');
-	var conference_table = league_table_json('conference');
-	
-	var premier_fixtures = fixtures_json('premier');
-	var champ_fixtures = fixtures_json('champ');
-	var league1_fixtures = fixtures_json('league1');
-	var league2_fixtures = fixtures_json('league2');
-	var conference_fixtures = fixtures_json('conference');
-	
-	var premier_season = season_json('premier');
-	var champ_season = season_json('champ');
-	var league1_season = season_json('league1');
-	var league2_season = season_json('league2');
-	var conference_season = season_json('conference');
+function refresh_table_data(time,user_time){
+	//only run on start of app and on refersh data
+	//user_time is for use if offline browser
+	if(navigator.onLine==true){
+		
+		
+			var premier_table = league_table_json('premier');
+			var champ_table = league_table_json('champ');
+			var league1_table = league_table_json('league1');
+			var league2_table = league_table_json('league2');
+			var conference_table = league_table_json('conference');
+		
+		
+			var premier_fixtures = fixtures_json('premier');
+			var champ_fixtures = fixtures_json('champ');
+			var league1_fixtures = fixtures_json('league1');
+			var league2_fixtures = fixtures_json('league2');
+			var conference_fixtures = fixtures_json('conference');
+		
+		
+			var premier_season = season_json('premier');
+			var champ_season = season_json('champ');
+			var league1_season = season_json('league1');
+			var league2_season = season_json('league2');
+			var conference_season = season_json('conference');
+		
 	db.transaction(function (tx) {	
-		tx.executeSql('UPDATE time_log SET data_time="'+time.toString()+'" WHERE tid=1');
-
+			tx.executeSql('UPDATE time_log SET data_time="'+time.toString()+'" WHERE tid=1');
 	});
-	
-	load_in_data_main('premier');
+	updated_text_notify(time);
+	}else{
+		alert("Could Not Establish Internet Connection");
+		updated_text_notify(user_time);
+	}
+
 }
