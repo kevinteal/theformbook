@@ -291,28 +291,16 @@
          <a href="#my_team_menu_panel" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-nodisc-icon noiconbg ui-btn-icon-right ui-icon-bars ui-btn-icon-notext" >Menu</a>
 		</div>
 		<div data-role="content" id="stats_content" data-theme="a">
-			
+			<div id="teamstats_loading_screen" class="loading_the_data"><span id="loading_text">LOADING DATA...</span></div>
             <div class="split_box my_font">
-            	<div class="left_div content_heading "><a href="#"  data-rel="popup" data-transition="pop"  class="ui-btn ui-btn-inline ui-mini ui-nodisc-icon noiconbg ui-icon-carat-l ui-btn-icon-notext"> </a><span id="teams_title_link">TEAMS</span></div>
+            	<div class="left_div content_heading "><span onClick="backtoteams()"><img src="imgs/backArrow.png" width="10" height="10" />TEAMS</span></div>
                 <div class="right_div content_sub_heading mydate_head">SATURDAY, 13th JUNE 2015</div>
             </div>
             <div class="clear_line"></div>
-            <div id="team_fixtures_head" class="three_split smallfont_gap underline_text" onClick="show_fixtures_team()">FIXTURES</div><div class="three_split"><span id="team_name_heading">SUNDERLAND</span></div><div id="team_results_head" class="three_split smallfont_gap" onClick="show_results_team()">RESULTS</div>
-             <div id="_stats_data" class="fixture_content fixture_font teams_select">
-            
-          <div class="new_date">SATURDAY, 13th JUNE 2015</div>
-                <span class="fixture"><div class="fixture_home_team highlight_team">SUNDERLAND</div><div class="fixture_time hightlight_win">3 - 0</div><div class="fixture_away_team">NEWCASTLE</div></span>
-                <div class="new_date">SATURDAY, 13th JUNE 2015</div>
-                <span class="fixture"><div class="fixture_home_team">LIVERPOOL</div><div class="fixture_time">12:45</div><div class="fixture_away_team highlight_team">SUNDERLAND</div></span>
-                <div class="new_date">SATURDAY, 13th JUNE 2015</div>
-                <span class="fixture"><div class="fixture_home_team highlight_team">SUNDERLAND</div><div class="fixture_time hightlight_loss">0 - 2</div><div class="fixture_away_team">WATFORD</div></span>
+            <div id="team_fixtures_head" class="three_split smallfont_gap" onClick="show_fixtures_team()">FIXTURES</div><div class="three_split"><span id="team_name_heading">TEAM</span></div><div id="team_results_head" class="three_split smallfont_gap" onClick="show_results_team()">RESULTS</div>
             
             
-            
-            
-            
-            
-		</div>
+             <div id="_stats_data" class="fixture_content fixture_font teams_select"></div>
         </div>
         <div data-role="panel" data-position="right" data-position-fixed="false" data-display="overlay" id="my_team_menu_panel" data-theme="b">
                             <!-- panel content goes here -->

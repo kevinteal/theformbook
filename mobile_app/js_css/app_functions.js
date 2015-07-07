@@ -2,6 +2,7 @@
 var date_options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 var curr_league=0;
 var leagues_title = ["premier league","championship","league 1","league 2","conference"];
+	var leagues = ["premier","champ","league1","league2","conference"];
 $(document).ready(function(e) {
    $("#ajax_loading_screen").css("display","block");
     $("#main_loading_screen").css("display","block");
@@ -115,13 +116,14 @@ function teams_setup(){
 		var content="";
 	
 	db.transaction(function (tx) {	
-		var leagues = ["premier","champ","league1","league2","conference"];
+	//reset curr league to 0
 		curr_league=0;
 
 		for(var x = 0; x<leagues.length; x++){
 		
 		tx.executeSql(' SELECT * FROM '+leagues[x]+'_leaguetable order by Team asc ', [], function(tx, results){
 			var league_title = leagues_title[curr_league];
+			var league_sql = leagues[curr_league];
 			curr_league++;
 			var len = results.rows.length, i;
 			//console.log("len is: "+len);
@@ -136,7 +138,7 @@ function teams_setup(){
 				}
 				
 				var team = results.rows.item(i);
-				var data="<div onClick=\"team_selected('"+team.Team+"')\" class='team_name'>"+team.Team.toUpperCase()+"</div>";
+				var data="<div onClick=\"team_selected('"+team.Team+"','"+league_sql+"')\" class='team_name'>"+team.Team.toUpperCase()+"</div>";
 				content+=data;
 			}
 			
@@ -157,11 +159,75 @@ function teams_setup(){
 	}
 }
 
+function backtoteams(){
+	$( ":mobile-pagecontainer" ).pagecontainer( "change", "#teams_page", { transition: "slide" } );
+}
 
-
-function team_selected(team){
-	console.log("selected "+team);
+function team_selected(team,league){
+	console.log("selected "+team+" "+league);
 	$( ":mobile-pagecontainer" ).pagecontainer( "change", "#stats_team", { transition: "slide" } );
+	
+	document.getElementById("_stats_data").innerHTML="";
+	document.getElementById("team_name_heading").textContent=team.toUpperCase();
+	$("#team_fixtures_head").addClass("underline_text");
+	$("#team_results_head").removeClass("underline_text");
+	
+	
+	$("#teamstats_loading_screen").css("display","block");
+		//no data get data
+
+		var content="";
+	
+	db.transaction(function (tx) {	
+
+		tx.executeSql(' SELECT * FROM '+league+'_fixtures where Home_Team="'+team+'" or Away_Team="'+team+'" order by Match_Date asc ', [], function(tx, results){
+			var len = results.rows.length, i;
+			var hometeam_highlight = "highlight_team";
+			var awayteam_highlight = "highlight_team";
+			for(i=0;i<len;i++){	
+				var fixture = results.rows.item(i);
+				
+				var fix_date = new Date(fixture.Match_Date);
+				fix_date = fix_date.toLocaleDateString('en-US', date_options);
+				
+				if(fixture.Home_Team==team){
+					hometeam_highlight = "highlight_team";
+					awayteam_highlight = "";
+				}
+				if(fixture.Away_Team==team){
+					awayteam_highlight = "highlight_team";
+					hometeam_highlight = "";
+				}
+				
+				var data="<div class='new_date'>"+fix_date.toUpperCase()+"</div>";
+				data+="<span class='fixture'><div class='fixture_home_team "+hometeam_highlight+"'>"+fixture.Home_Team.toUpperCase()+"</div><div class='fixture_time'>"+fixture.Kickoff.substring(0,5)+"</div><div class='fixture_away_team "+awayteam_highlight+"'>"+fixture.Away_Team.toUpperCase()+"</div></span>";
+				content+=data;
+			}
+			
+			document.getElementById("_stats_data").innerHTML += content;
+			content="";//reset content
+		
+		
+		});
+		
+		$("#teamstats_loading_screen").css("display","none");
+		});
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
 function show_results_team(){
 	$("#team_results_head").addClass("underline_text");
@@ -183,7 +249,7 @@ function prediction_setup(){
 	var content="";
 	
 	db.transaction(function (tx) {	
-		var leagues = ["premier","champ","league1","league2","conference"];
+	
 		curr_league=0;
 		
 		
