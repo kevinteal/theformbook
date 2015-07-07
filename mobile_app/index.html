@@ -256,52 +256,17 @@
 		</div>
 		<div data-role="content" id="teams_content" data-theme="a">
 			
+            <div id="teams_loading_screen" class="loading_the_data"><span id="loading_text">LOADING DATA...</span></div>
+            
             <div class="split_box my_font">
             	<div class="left_div content_heading ">TEAMS</div>
                 <div class="right_div content_sub_heading mydate_head">SATURDAY, 13th JUNE 2015</div>
             </div>
             
-             <div id="_teams_data" class="fixture_content fixture_font teams_select">
-            
-            <div class="prediction_box">
-                <div class="prediction_heading">PREMIER LEAGUE</div>
-                <div class="prediction_title"></div>
-                
-                
-                <div class="team_side_left">
-                	<div onClick="team_selected('Arsenal')" class="team_name">Arsenal</div>
-                    <div onClick="team_selected('Aston Villa')" class="team_name">Aston Villa</div>
-                    <div onClick="team_selected('Bournemouth')" class="team_name">Bournemouth</div>
-                    <div class="team_name">Chelsea</div>
-                    <div class="team_name">Crystal Palace</div>
-                    <div class="team_name">Everton</div>
-                    <div class="team_name">Leicester</div>
-                    <div class="team_name">Liverpool</div>
-                    <div class="team_name">Man City</div>
-                    <div class="team_name">Man Utd</div>
-				</div>
-                <div class="team_side_right">
-                	<div onClick="team_selected('Newcastle')"class="team_name">Newcastle</div>
-                    <div onClick="team_selected('Norwich')" class="team_name">Norwich</div>
-                    <div onClick="team_selected('Southampton')" class="team_name">Southampton</div>
-                    <div class="team_name">Stoke</div>
-                    <div class="team_name">Sunderland</div>
-                    <div class="team_name">Swansea</div>
-                    <div class="team_name">Tottenham</div>
-                    <div class="team_name">Watford</div>
-                    <div class="team_name">West Brom</div>
-                    <div class="team_name">West Ham</div>
-				</div>
-            
-            </div>
-            
-            
-            
-            
-            
-            
-		</div>
+             <div id="_teams_data" class="fixture_content fixture_font teams_select"></div>
         </div>
+        
+        
         <div data-role="panel" data-position="right" data-position-fixed="false" data-display="overlay" id="teams_menu_panel" data-theme="b">
                             <!-- panel content goes here -->
               <center>Navigation</center>
@@ -313,7 +278,7 @@
                              <div class="panel_menu_icon_wrapper" onClick="refresh_data()" ><div class="panel_menu_img"><img src="imgs/refresh.png" /></div><div class="panel_menu_text">REFRESH DATA</div></div>
                             <div class="clear_line"> <p class="updated_text"></p></div>
             </div><!-- /panel -->
-	</div><!-- /prediction -->
+	</div><!-- /teams_page -->
     
     
     

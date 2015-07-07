@@ -102,6 +102,63 @@ function tables_list_mainpage(league){
 	document.getElementById('tables_list_heading').innerHTML=league;
 	$( "#tables_popup_leagues" ).popup( "close" );
 }
+
+
+
+function teams_setup(){
+	var data_in = document.getElementById("_teams_data").innerHTML;
+	
+	if(data_in==""){
+		$("#teams_loading_screen").css("display","block");
+		//no data get data
+
+		var content="";
+	
+	db.transaction(function (tx) {	
+		var leagues = ["premier","champ","league1","league2","conference"];
+		curr_league=0;
+
+		for(var x = 0; x<leagues.length; x++){
+		
+		tx.executeSql(' SELECT * FROM '+leagues[x]+'_leaguetable order by Team asc ', [], function(tx, results){
+			var league_title = leagues_title[curr_league];
+			curr_league++;
+			var len = results.rows.length, i;
+			//console.log("len is: "+len);
+			content+="<div class='prediction_box'><div class='prediction_heading'>"+league_title.toUpperCase()+"</div><div class='prediction_title'></div>";
+			var half_mark = len/2;
+			for(i=0;i<len;i++){	
+				if(i==0){
+					content+="<div class='team_side_left'>";
+				}
+				if(i==half_mark){
+					content+="</div><div class='team_side_right'>";
+				}
+				
+				var team = results.rows.item(i);
+				var data="<div onClick=\"team_selected('"+team.Team+"')\" class='team_name'>"+team.Team.toUpperCase()+"</div>";
+				content+=data;
+			}
+			
+			
+			
+			content+="</div></div>";//close prediction box and right side
+			document.getElementById("_teams_data").innerHTML += content;
+			content="";//reset content
+		
+		
+		});
+		}
+		$("#teams_loading_screen").css("display","none");
+		});
+
+	}else{
+		//already loaded leave as
+	}
+}
+
+
+
 function team_selected(team){
 	console.log("selected "+team);
 	$( ":mobile-pagecontainer" ).pagecontainer( "change", "#stats_team", { transition: "slide" } );
@@ -227,6 +284,9 @@ function panel_change_page(page){
 	}
 	if(page=="fixtures"){
 		//fixtures page is only page loaded on app start so no need to reload it.
+	}
+	if(page=="teams"){
+		teams_setup();
 	}
 	
 }
