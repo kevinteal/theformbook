@@ -155,9 +155,64 @@ function results_list_mainpage(league){
 	
 }
 
+
+function load_league_table(league){
+	$("#tables_loading_screen").css("display","block");
+	var data_in = document.getElementById("_tables_data").innerHTML;
+	
+	if(data_in=="<p></p>"){
+		//load league table
+		//table headers
+		var content = "<div class='clear_line'> <div class='_table_header_l'>POINTS</div><div class='_table_header'>L</div><div class='_table_header'>D</div><div class='_table_header'>W</div> <div class='_table_header'>P</div></div>";
+		
+		db.transaction(function (tx) {	
+			tx.executeSql(' SELECT * FROM '+league+'_leaguetable order by Position asc ', [], function(tx, results){
+			var len = results.rows.length, i;
+			var fixture_date_heading = 0;
+			for(i=0;i<len;i++){	
+				var fixture = results.rows.item(i);
+				//console.log(fixture.Match_Date+" "+fixture.Home_Team+" "+fixture.Away_Team+" "+fixture.Kickoff);
+				//group all fixtures with same date under one heading
+				content+="<div class='table_row_team'>"+
+      			"<div class='table_team_pos'>"+fixture.Position+"</div>"+
+	  			"<div class='table_team_name'>"+fixture.Team.toUpperCase()+"</div>"+
+				"<div class='table_team_played'>"+fixture.Played+"</div>"+
+				"<div class='table_team_won'>"+fixture.Won+"</div>"+
+   				"<div class='table_team_drawn'>"+fixture.Drawn+"</div>"+
+    			"<div class='table_team_lost'>"+fixture.Lost+"</div>"+
+	 			"<div class='table_team_points'>"+fixture.Points+"</div>"+
+      			"</div>";
+										
+			}
+			//add all content to screen
+			document.getElementById("_tables_data").innerHTML = content;
+			$("#tables_loading_screen").css("display","none");
+	});
+	});
+	}else{
+		//already loaded	
+		$("#tables_loading_screen").css("display","none");
+	}
+	
+}
+
 function tables_list_mainpage(league){
-	document.getElementById('tables_list_heading').innerHTML=league;
+	
+	var show_league=league;
+	var sql_league = "premier";
+	
+	if(show_league == "PREMIER LEAGUE") sql_league="premier";
+	if(show_league == "CHAMPIONSHIP") sql_league="champ";
+	if(show_league == "LEAGUE 1") sql_league="league1";
+	if(show_league == "LEAGUE 2") sql_league="league2";
+	if(show_league == "CONFERENCE") sql_league="conference";
+	
+	
+	
+	document.getElementById('tables_list_heading').innerHTML=show_league;
 	$( "#tables_popup_leagues" ).popup( "close" );
+	document.getElementById("_tables_data").innerHTML="<p></p>";
+	load_league_table(sql_league);
 }
 
 
@@ -470,12 +525,14 @@ function refresh_data(){
 	document.getElementById("_prediction_data").innerHTML="";
 	document.getElementById("_fixture_data").innerHTML="<p></p>";
 	document.getElementById("_results_data").innerHTML="<p></p>";
+	document.getElementById("_tables_data").innerHTML="<p></p>";
+	document.getElementById('tables_list_heading').innerHTML="PREMIER LEAGUE";
 	document.getElementById("results_list_heading").innerHTML="PREMIER LEAGUE";
 	db.transaction(function (tx) {	
 			tx.executeSql('UPDATE time_log SET data_time="Sat Jul 04 2015 15:27:31 GMT+0100 (GMT Daylight Time)" WHERE tid=1');
 			var mytime = check_time_log();
 	});
-	}, 3000);
+	}, 1500);
 	//also make predictions page blank
 	
 }
@@ -497,6 +554,10 @@ function panel_change_page(page){
 	if(page=="results"){
 		//send over prem for initial load
 		results_setup('premier');
+	}
+	if(page=="tables"){
+		//send over for inital load
+		load_league_table('premier');
 	}
 	
 }
