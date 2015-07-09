@@ -53,10 +53,11 @@ function load_in_data_main(league){
 					//group all fixtures with same date under one heading
 					content+="<span class='fixture'><div class='fixture_home_team'>"+fixture.Home_Team.toUpperCase()+"</div><div class='fixture_time'>"+fixture.Kickoff.substring(0,5)+"</div><div class='fixture_away_team'>"+fixture.Away_Team.toUpperCase()+"</div></span>";
 				
+			
 				
-				document.getElementById("_fixture_data").innerHTML = content;
 												
 			}
+			document.getElementById("_fixture_data").innerHTML = content;
 			$("#main_loading_screen").css("display","none");
 	});
 	});
@@ -90,13 +91,68 @@ function fixture_list_mainpage(league){
 	
 }
 
-
+function results_setup(league){
+	$("#results_loading_screen").css("display","block");
+	var data_in = document.getElementById("_results_data").innerHTML;
+	
+	
+	if(data_in=="<p></p>"){
+		//load in results for prem
+		db.transaction(function (tx) {	
+			tx.executeSql(' SELECT * FROM '+league+'_season2015 order by Match_Date asc ', [], function(tx, results){
+			var len = results.rows.length, i;
+			var fixture_date_heading = 0;
+			var content = "";
+			for(i=0;i<len;i++){	
+				var fixture = results.rows.item(i);
+				//console.log(fixture.Match_Date+" "+fixture.Home_Team+" "+fixture.Away_Team+" "+fixture.Kickoff);
+				if(fixture_date_heading!=fixture.Match_Date){
+					//output a new heading for date
+					var fix_date = new Date(fixture.Match_Date);
+					fix_date = fix_date.toLocaleDateString('en-US', date_options);
+					content+="<div class='new_date'>"+fix_date.toUpperCase()+"</div>";
+					fixture_date_heading = fixture.Match_Date;
+				}
+					//group all fixtures with same date under one heading
+					content+="<span class='fixture'><div class='fixture_home_team'>"+fixture.Home_Team.toUpperCase()+"</div><div class='fixture_time'>"+fixture.Home_Goals+" - "+fixture.Away_Goals+"</div><div class='fixture_away_team'>"+fixture.Away_Team.toUpperCase()+"</div></span>";
+										
+			}
+			//add all content to screen
+			if(content==""){
+				content="<p>No Results Found</p>"
+			}
+			document.getElementById("_results_data").innerHTML = content;
+			$("#results_loading_screen").css("display","none");
+	});
+	});
+	}else{
+		//keep data already loaded
+		
+		$("#results_loading_screen").css("display","none");
+	}
+	
+}
 
 
 
 function results_list_mainpage(league){
-	document.getElementById('results_list_heading').innerHTML=league;
+	
 	$( "#results_popup_leagues" ).popup( "close" );
+	var show_league=league;
+	var sql_league = "premier";
+	
+	if(show_league == "PREMIER LEAGUE") sql_league="premier";
+	if(show_league == "CHAMPIONSHIP") sql_league="champ";
+	if(show_league == "LEAGUE 1") sql_league="league1";
+	if(show_league == "LEAGUE 2") sql_league="league2";
+	if(show_league == "CONFERENCE") sql_league="conference";
+	
+	
+	document.getElementById('results_list_heading').innerHTML=show_league;
+	//reset the data
+	document.getElementById("_results_data").innerHTML="<p></p>";
+	 results_setup(sql_league);
+	
 }
 
 function tables_list_mainpage(league){
@@ -413,6 +469,8 @@ function refresh_data(){
 	setTimeout(function(){ 
 	document.getElementById("_prediction_data").innerHTML="";
 	document.getElementById("_fixture_data").innerHTML="<p></p>";
+	document.getElementById("_results_data").innerHTML="<p></p>";
+	document.getElementById("results_list_heading").innerHTML="PREMIER LEAGUE";
 	db.transaction(function (tx) {	
 			tx.executeSql('UPDATE time_log SET data_time="Sat Jul 04 2015 15:27:31 GMT+0100 (GMT Daylight Time)" WHERE tid=1');
 			var mytime = check_time_log();
@@ -435,6 +493,10 @@ function panel_change_page(page){
 	}
 	if(page=="teams"){
 		teams_setup();
+	}
+	if(page=="results"){
+		//send over prem for initial load
+		results_setup('premier');
 	}
 	
 }
