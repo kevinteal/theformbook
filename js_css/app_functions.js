@@ -163,7 +163,7 @@ function load_league_table(league){
 	if(data_in=="<p></p>"){
 		//load league table
 		//table headers
-		var content = "<div class='clear_line'> <div class='_table_header_l'>POINTS</div><div class='_table_header'>L</div><div class='_table_header'>D</div><div class='_table_header'>W</div> <div class='_table_header'>P</div></div>";
+		var content = "<div class='clear_line'> <div class='_table_header_l'>POINTS</div><div class='_table_header'>GD</div><div class='_table_header'>L</div><div class='_table_header'>D</div><div class='_table_header'>W</div> <div class='_table_header'>P</div></div>";
 		
 		db.transaction(function (tx) {	
 			tx.executeSql(' SELECT * FROM '+league+'_leaguetable order by Position asc ', [], function(tx, results){
@@ -180,8 +180,10 @@ function load_league_table(league){
 				"<div class='table_team_won'>"+fixture.Won+"</div>"+
    				"<div class='table_team_drawn'>"+fixture.Drawn+"</div>"+
     			"<div class='table_team_lost'>"+fixture.Lost+"</div>"+
+				"<div class='table_team_GD'>"+fixture.GD+"</div>"+
 	 			"<div class='table_team_points'>"+fixture.Points+"</div>"+
       			"</div>";
+				
 										
 			}
 			//add all content to screen

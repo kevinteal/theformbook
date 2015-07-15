@@ -14,12 +14,11 @@ db.transaction(function (tx) {
 		
 		//tx.executeSql('DROP TABLE time_log');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS time_log (tid INTEGER, data_time TEXT, PRIMARY KEY(tid))');
-		tx.executeSql('INSERT INTO time_log (tid,data_time) VALUES (1,"Sat Jul 04 2015 15:27:31 GMT+0100 (GMT Daylight Time)")');
-		tx.executeSql('CREATE TABLE IF NOT EXISTS premier_leaguetable (Position INTEGER, Team UNIQUE, Played INTEGER, Won INTEGER, Drawn INTEGER, Lost INTEGER, Points INTEGER)');
-		tx.executeSql('CREATE TABLE IF NOT EXISTS champ_leaguetable (Position INTEGER, Team UNIQUE, Played INTEGER, Won INTEGER, Drawn INTEGER, Lost INTEGER, Points INTEGER)');
-		tx.executeSql('CREATE TABLE IF NOT EXISTS league1_leaguetable (Position INTEGER, Team UNIQUE, Played INTEGER, Won INTEGER, Drawn INTEGER, Lost INTEGER, Points INTEGER)');
-		tx.executeSql('CREATE TABLE IF NOT EXISTS league2_leaguetable (Position INTEGER, Team UNIQUE, Played INTEGER, Won INTEGER, Drawn INTEGER, Lost INTEGER, Points INTEGER)');
-		tx.executeSql('CREATE TABLE IF NOT EXISTS conference_leaguetable (Position INTEGER, Team UNIQUE, Played INTEGER, Won INTEGER, Drawn INTEGER, Lost INTEGER, Points INTEGER)');
+		tx.executeSql('CREATE TABLE IF NOT EXISTS premier_leaguetable (Position INTEGER, Team UNIQUE, Played INTEGER, Won INTEGER, Drawn INTEGER, Lost INTEGER, GD INTEGER, Points INTEGER)');
+		tx.executeSql('CREATE TABLE IF NOT EXISTS champ_leaguetable (Position INTEGER, Team UNIQUE, Played INTEGER, Won INTEGER, Drawn INTEGER, Lost INTEGER, GD INTEGER, Points INTEGER)');
+		tx.executeSql('CREATE TABLE IF NOT EXISTS league1_leaguetable (Position INTEGER, Team UNIQUE, Played INTEGER, Won INTEGER, Drawn INTEGER, Lost INTEGER, GD INTEGER, Points INTEGER)');
+		tx.executeSql('CREATE TABLE IF NOT EXISTS league2_leaguetable (Position INTEGER, Team UNIQUE, Played INTEGER, Won INTEGER, Drawn INTEGER, Lost INTEGER, GD INTEGER, Points INTEGER)');
+		tx.executeSql('CREATE TABLE IF NOT EXISTS conference_leaguetable (Position INTEGER, Team UNIQUE, Played INTEGER, Won INTEGER, Drawn INTEGER, Lost INTEGER, GD INTEGER, Points INTEGER)');
 		
 		tx.executeSql('CREATE TABLE IF NOT EXISTS premier_fixtures (Match_Date TEXT, Home_Team TEXT, Away_Team TEXT, Kickoff TEXT, p_h_goals INTEGER, p_a_goals INTEGER, PRIMARY KEY(Match_Date,Home_Team,Away_Team))');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS champ_fixtures (Match_Date TEXT, Home_Team TEXT, Away_Team TEXT, Kickoff TEXT, p_h_goals INTEGER, p_a_goals INTEGER, PRIMARY KEY(Match_Date,Home_Team,Away_Team))');
@@ -32,12 +31,13 @@ db.transaction(function (tx) {
 		tx.executeSql('CREATE TABLE IF NOT EXISTS league1_season2015 (Home_Team TEXT, Away_Team TEXT, Home_Goals INTEGER, Away_Goals INTEGER, Match_Date TEXT, PRIMARY KEY(Match_Date,Home_Team,Away_Team))');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS league2_season2015 (Home_Team TEXT, Away_Team TEXT, Home_Goals INTEGER, Away_Goals INTEGER, Match_Date TEXT, PRIMARY KEY(Match_Date,Home_Team,Away_Team))');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS conference_season2015 (Home_Team TEXT, Away_Team TEXT, Home_Goals INTEGER, Away_Goals INTEGER, Match_Date TEXT, PRIMARY KEY(Match_Date,Home_Team,Away_Team))');
-	
-	
-		
-		
 		
 		//if you need to remove a table, use sql ('show tables like 'tablename') if the result set returns a row then drop table code.
+});
+
+
+db.transaction(function (tx) {	
+	tx.executeSql('INSERT INTO time_log (tid,data_time) VALUES (1,"Sat Jul 04 2015 15:27:31 GMT+0100 (GMT Daylight Time)")');
 });
 
 //counter to make sure everything has loaded before loading screen ends 
@@ -71,7 +71,7 @@ function league_table_json(league){
 			//console.log(val.Position +" "+ val.Team + " " + val.Played + " " + val.Won + " " + val.Drawn + " " + val.Lost + " " + val.Points);
 			//console.log("Success json table for "+league);
 			
-			tx.executeSql('INSERT INTO '+league+'_leaguetable (Position, Team, Played, Won, Drawn, Lost, Points) VALUES ('+val.Position+', "'+val.Team+'", '+val.Played+', '+val.Won+', '+val.Drawn+', '+val.Lost+', '+val.Points+')');
+			tx.executeSql('INSERT INTO '+league+'_leaguetable (Position, Team, Played, Won, Drawn, Lost, GD, Points) VALUES ('+val.Position+', "'+val.Team+'", '+val.Played+', '+val.Won+', '+val.Drawn+', '+val.Lost+', '+val.GD+', '+val.Points+')');
 			});
 		});
 		

@@ -88,13 +88,22 @@
 	float:left;
 	width:40%;
 	color:#fff !important;
+	
 }
 .fixture_time{
 	float:left;
 	width:20%;
 	text-align:center;
 	color:#a5a5a5 !important;
+	border-bottom:0.2em solid #374140 !important;
 }
+.fixture_time,.fixture_home_team, .fixture_away_team{
+	margin-top:0.5em;
+	margin-bottom:0.5em;
+	border-bottom:0.2em solid #2a2c2b;
+	
+}
+
 
 
 .new_date:not(:first-child){
@@ -130,7 +139,7 @@
 }
 ._table_header{
 	float:right;
-	width:10%;
+	width:7%;
 	height:1em;
 	text-align:center;
 	font-size:0.6em;
@@ -151,7 +160,7 @@
 	float:left;
 	width:100%;
 	margin-bottom:0.8em;
-	border-bottom:1px solid #1a1e1e;
+	border-bottom:1px solid #374140;
 	box-sizing:border-box;
 	padding:0.5em;
 }
@@ -163,13 +172,13 @@
 }
 .table_team_name{
 	float:left;
-	width:37%;
+	width:42%;
 	font-size:1.1em;
-	color:#b4b4b4;
+	color:#fff;
 }
-.table_team_played,.table_team_won,.table_team_drawn,.table_team_lost{
+.table_team_played,.table_team_won,.table_team_drawn,.table_team_lost,.table_team_GD{
 	float:left;
-	width:10%;
+	width:7%;
 	text-align:center;
 	color:#7e7e7e;
 }
