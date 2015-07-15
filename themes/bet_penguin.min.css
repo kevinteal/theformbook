@@ -285,7 +285,13 @@
 	text-align:center;
 	font-size:0.6em;
 }
-
+.indent_me{
+	margin-left:4em;
+}
+.center_title{
+	width:100%;
+	text-align:center;
+}
 
 
 

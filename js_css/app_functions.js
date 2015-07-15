@@ -34,7 +34,7 @@ function load_in_data_main(league){
 	//if equal to p tags then nothing loaded so load in, else already loaded it
 	if(data_in=="<p></p>"){
 	db.transaction(function (tx) {	
-	tx.executeSql(' SELECT * FROM '+league+'_fixtures where Match_Date>"'+today+'" order by Match_Date, Kickoff asc ', [], function(tx, results){
+	tx.executeSql(' SELECT * FROM '+league+'_fixtures where Match_Date>="'+today+'" order by Match_Date, Kickoff asc ', [], function(tx, results){
 			var len = results.rows.length, i;
 			var fixture_date_heading = 0;
 			var content = " ";
@@ -47,7 +47,11 @@ function load_in_data_main(league){
 					//output a new heading for date
 					var fix_date = new Date(fixture.Match_Date);
 					fix_date = fix_date.toLocaleDateString('en-US', date_options);
-					content+="<div class='new_date'>"+fix_date.toUpperCase()+"</div>";
+					if(fixture.Match_Date==today){
+						content+="<div class='new_date'>TODAYS FIXTURES</div>";
+					}else{
+						content+="<div class='new_date'>"+fix_date.toUpperCase()+"</div>";
+					}
 					fixture_date_heading = fixture.Match_Date;
 				}
 					//group all fixtures with same date under one heading
@@ -460,12 +464,15 @@ function prediction_setup(){
 			if(len>0){
 				content += "<div class='prediction_box'><div class='prediction_heading'>"+league_title.toUpperCase()+"</div><div class='prediction_title'>PREDICTION</div>";
 			}
+				if(len==0){
+				content += "<div class='prediction_box'><div class='prediction_heading'>"+league_title.toUpperCase()+"</div><p class='indent_me'>NO FIXTURES TODAY</p>";
+			}
 			
 			for(i=0;i<len;i++){	
 				var fixture = results.rows.item(i);
 				if(fixture.p_h_goals===null) fixture.p_h_goals = " ";
 				if(fixture.p_a_goals===null) fixture.p_a_goals = " ";
-				var data = "<span class='fixture'><div class='fixture_home_team'>"+fixture.Home_Team+"</div><div class='fixture_time'>"+fixture.p_h_goals+" - "+fixture.p_a_goals+"</div><div class='fixture_away_team'>"+fixture.Away_Team+"</div></span>";
+				var data = "<span class='fixture' onClick=\"head2head_load('"+fixture.Home_Team+"','"+fixture.Away_Team+"','"+league_title+"')\" ><div class='fixture_home_team'>"+fixture.Home_Team.toUpperCase()+"</div><div class='fixture_time'>"+fixture.p_h_goals+" - "+fixture.p_a_goals+"</div><div class='fixture_away_team'>"+fixture.Away_Team.toUpperCase()+"</div></span>";
 				content+=data;
 			}
 			
@@ -515,6 +522,33 @@ function get_today(){
 	var today = ""+year+"-"+month+"-"+day+"";
 	//console.log("today is "+today);
 	return today;
+}
+
+
+function head2head_load(home_team,away_team,league){
+	console.log(league+": "+home_team+" - "+away_team);
+	$( ":mobile-pagecontainer" ).pagecontainer( "change", "#head2head_page", { transition: "slide" } );
+	$("#head2head_loading_screen").css("display","block");
+	
+	
+	db.transaction(function (tx) {	
+	//get league table position for home and away teams.
+	
+	//get season form for each team.
+	
+	//get home/away form for each team
+	
+	//get prediction from fixtures.
+	
+	});
+	
+	
+	$("#head2head_loading_screen").css("display","none");
+}
+
+function backtofixtures(){
+	//send back to prediction from head2head
+	$( ":mobile-pagecontainer" ).pagecontainer( "change", "#prediction_page", { transition: "slide" } );
 }
 
 function refresh_data(){
