@@ -256,10 +256,10 @@
 	color:#74cec5 !important;
 }
 .highlight_win{
-	color:#6faa77 !important;
+	color:#53c866 !important;
 }
 .highlight_loss{
-	color:#ff3963 !important;
+	color:#aa3044 !important;
 }
 
 .loading_the_data{
@@ -292,7 +292,75 @@
 	width:100%;
 	text-align:center;
 }
+.head2head_statbox{
+	float:left;
+	width:49.75%;
+	height:15em;
+}
+.seperator_bar{
+	float:left;
+	width:0.5%;
+	height:15em;
+	background:#374140;
+}
+.form_wrap{
+	width:100%;
+	float:left;
+	height:100%;
+	padding-left:1%;
+	padding-right:1%;
+}
 
+.form_box{
+	float:left;
+	width:13%;
+	margin-left:3%;
+	height:20px;
+	font-size:1em;
+	text-align:center;
+	line-height:20px;
+}
+.form_box_win{
+	background:#53c866; 
+}
+.form_box_draw{
+	background:#8e8e8e;
+}
+.form_box_loss{
+	background:#aa3044;
+}
+.small_title_form{
+	margin-top:1em;
+	color:#a5a5a5;
+	font-size:0.8em;
+	width:100%;
+	text-align:center;
+}
+.large_title_form{
+	text-align:center;
+	width:100%;
+	color:#fff;
+	font-size:1.3em;
+	margin-bottom:0.5em;
+}
+#home_form_data,#away_form_data,#home_form_data_l,#away_form_data_l{
+	text-align:center;
+	width:100%;
+	height:25px;
+}
+#h2h_previous_fixture{
+	width:100%;
+	font-size:0.6em;
+	color:#a5a5a5;
+	margin-bottom:2em;
+	float:left;
+	margin-top:2em;
+}
+#h2h_prediction_fixture{
+	float:left;
+	width:100%;
+	font-size:0.7em;
+}
 
 
 /* DONT PUT CSS BELOW THIS. BREAKS SOMEHOW */

@@ -256,7 +256,7 @@
 		<div data-role="content" id="stats_content" data-theme="a">
 			<div id="teamstats_loading_screen" class="loading_the_data"><span id="loading_text">LOADING DATA...</span></div>
             <div class="split_box my_font">
-            	<div class="left_div content_heading "><span onClick="backtoteams()"><img src="imgs/backArrow.png" width="10" height="10" />TEAMS</span></div>
+            	<div class="left_div content_heading "><span onClick="backtoteams()"><img src="imgs/backArrow.png" width="10" height="10" /> TEAMS</span></div>
                 <div class="right_div content_sub_heading mydate_head">SATURDAY, 13th JUNE 2015</div>
             </div>
             <div class="clear_line"></div>
@@ -286,20 +286,48 @@
 		<div data-role="header" data-position="inline">
 			<span class="header_logo my_font large_font">The Form Book Predicts</span><br/>
             <span class="header_logo my_font small_font">The Premier League, Football League &amp; Conference</span>
-         <a href="#my_team_menu_panel" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-nodisc-icon noiconbg ui-btn-icon-right ui-icon-bars ui-btn-icon-notext" >Menu</a>
+         <a href="#head2head_menu_panel" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-nodisc-icon noiconbg ui-btn-icon-right ui-icon-bars ui-btn-icon-notext" >Menu</a>
 		</div>
 		<div data-role="content" id="head2head_content" data-theme="a">
 			<div id="head2head_loading_screen" class="loading_the_data"><span id="loading_text">LOADING DATA...</span></div>
             <div class="split_box my_font">
-            	<div class="left_div content_heading "><span onClick="backtofixtures()"><img src="imgs/backArrow.png" width="10" height="10" />BACK</span></div>
+            	<div class="left_div content_heading "><span onClick="backtofixtures()"><img src="imgs/backArrow.png" width="10" height="10" /> BACK</span></div>
                 <div class="right_div content_sub_heading mydate_head">SATURDAY, 13th JUNE 2015</div>
             </div>
             <div class="clear_line"></div>
                  <div class="center_title fixture_font">HEAD TO HEAD</div>
             
              <div id="_head2head_data" class="fixture_content fixture_font teams_select"></div>
+             <div id="_head2head_data_table" class="fixture_font"></div>
+             <div id="_head2head_data_form" class="fixture_font">
+                     <div class="head2head_statbox">
+                     	<div id="home_team_form_box" class="form_wrap">
+                        	<div class="small_title_form">HOME TEAM</div>
+                            <div id="home_team_title_form" class="large_title_form"></div>
+                            <div class="small_title_form">LAST 6 GAMES</div>
+                            <div id="home_form_data"></div>
+                            <div class="small_title_form">LAST 6 HOME GAMES</div>
+                            <div id="home_form_data_l"></div>
+                        </div>
+                     </div>
+                     <div class="seperator_bar"></div>
+                     <div class="head2head_statbox">
+                     	<div id="away_team_form_box" class="form_wrap">
+                     		<div class="small_title_form">AWAY TEAM</div>
+                         	<div id="away_team_title_form" class="large_title_form"></div>
+                            <div class="small_title_form">LAST 6 GAMES</div>
+                            <div id="away_form_data"></div>
+                            <div class="small_title_form">LAST 6 AWAY GAMES</div>
+                            <div id="away_form_data_l"></div>
+                     	</div>                       
+                     </div> 
+             </div>
+             
+             	<div id="h2h_previous_fixture" class="fixture_font"></div>
+                <div id="h2h_prediction_fixture" class="fixture_font"></div>
+             
         </div>
-        <div data-role="panel" data-position="right" data-position-fixed="false" data-display="overlay" id="my_team_menu_panel" data-theme="b">
+        <div data-role="panel" data-position="right" data-position-fixed="false" data-display="overlay" id="head2head_menu_panel" data-theme="b">
                             <!-- panel content goes here -->
               <center>Navigation</center>
             				<div class="panel_menu_icon_wrapper" onClick="panel_change_page('prediction')" ><div class="panel_menu_img"><img src="imgs/prediction.png" /></div><div class="panel_menu_text">PREDICTIONS</div></div>

@@ -102,10 +102,7 @@ function fixtures_json(league){
 			
 			tx.executeSql('INSERT INTO '+league+'_fixtures (Match_Date, Home_Team, Away_Team, Kickoff, p_h_goals, p_a_goals) VALUES ("'+val.date+'", "'+val.Home_Team+'", "'+val.Away_Team+'", "'+val.Kickoff+'", '+val.p_h_goals+', '+val.p_a_goals+')');
 			});
-			
-		});
-		
-		console.log("Success json fixtures for "+league+" fix counter: "+fixture_counter);
+			console.log("Success json fixtures for "+league+" fix counter: "+fixture_counter);
 		fixture_counter++;
 		if(fixture_counter==5){
 			console.log("all fixtures loaded?");
@@ -114,6 +111,9 @@ function fixtures_json(league){
 			load_in_data_main('premier');
 			hide_loading_screen();
 		}
+		});
+		
+		
 	  })
 	.fail(function( jqxhr, textStatus, error ) {
 		var err = textStatus + ", " + error;

@@ -103,7 +103,7 @@ function results_setup(league){
 	if(data_in=="<p></p>"){
 		//load in results for prem
 		db.transaction(function (tx) {	
-			tx.executeSql(' SELECT * FROM '+league+'_season2015 order by Match_Date asc ', [], function(tx, results){
+			tx.executeSql(' SELECT * FROM '+league+'_season2015 order by Match_Date desc ', [], function(tx, results){
 			var len = results.rows.length, i;
 			var fixture_date_heading = 0;
 			var content = "";
@@ -348,7 +348,7 @@ function team_selected_get_results(team, league){
 	
 	db.transaction(function (tx) {	
 
-		tx.executeSql(' SELECT * FROM '+league+'_season2015 where Home_Team="'+team+'" or Away_Team="'+team+'" order by Match_Date asc ', [], function(tx, results){
+		tx.executeSql(' SELECT * FROM '+league+'_season2015 where Home_Team="'+team+'" or Away_Team="'+team+'" order by Match_Date desc ', [], function(tx, results){
 			
 			var len = results.rows.length, i;
 			var hometeam_highlight = "highlight_team";
@@ -472,7 +472,7 @@ function prediction_setup(){
 				var fixture = results.rows.item(i);
 				if(fixture.p_h_goals===null) fixture.p_h_goals = " ";
 				if(fixture.p_a_goals===null) fixture.p_a_goals = " ";
-				var data = "<span class='fixture' onClick=\"head2head_load('"+fixture.Home_Team+"','"+fixture.Away_Team+"','"+league_title+"')\" ><div class='fixture_home_team'>"+fixture.Home_Team.toUpperCase()+"</div><div class='fixture_time'>"+fixture.p_h_goals+" - "+fixture.p_a_goals+"</div><div class='fixture_away_team'>"+fixture.Away_Team.toUpperCase()+"</div></span>";
+				var data = "<span class='fixture' onClick=\"head2head_load('"+fixture.Home_Team+"','"+fixture.Away_Team+"','"+league_title+"', '"+fixture.Match_Date+"')\" ><div class='fixture_home_team'>"+fixture.Home_Team.toUpperCase()+"</div><div class='fixture_time'>"+fixture.p_h_goals+" - "+fixture.p_a_goals+"</div><div class='fixture_away_team'>"+fixture.Away_Team.toUpperCase()+"</div></span>";
 				content+=data;
 			}
 			
@@ -525,20 +525,281 @@ function get_today(){
 }
 
 
-function head2head_load(home_team,away_team,league){
-	console.log(league+": "+home_team+" - "+away_team);
+function head2head_load(home_team,away_team,league,matchdate){
+	document.getElementById("_head2head_data_table").innerHTML="";
+	document.getElementById("home_form_data").innerHTML="";
+	document.getElementById("away_form_data").innerHTML="";
+	document.getElementById("home_form_data_l").innerHTML="";
+	document.getElementById("away_form_data_l").innerHTML="";
+	document.getElementById("h2h_previous_fixture").innerHTML="";
+	document.getElementById("h2h_prediction_fixture").innerHTML="";
+	
+	
+	
+	
+	
+	console.log(matchdate+": "+league+": "+home_team+" - "+away_team);
 	$( ":mobile-pagecontainer" ).pagecontainer( "change", "#head2head_page", { transition: "slide" } );
 	$("#head2head_loading_screen").css("display","block");
+	
+	if(league == "premier league") league="premier";
+	if(league == "championship") league="champ";
+	if(league == "league 1") league="league1";
+	if(league == "league 2") league="league2";
+	if(league == "conference") league="conference";
 	
 	
 	db.transaction(function (tx) {	
 	//get league table position for home and away teams.
+	var table_content = "<p></p><div class='clear_line'> <div class='_table_header_l'>POINTS</div><div class='_table_header'>GD</div><div class='_table_header'>L</div><div class='_table_header'>D</div><div class='_table_header'>W</div> <div class='_table_header'>P</div></div>";
+	
+	tx.executeSql(' SELECT * FROM '+league+'_leaguetable where Team in ("'+home_team+'", "'+away_team+'") ', [], function(tx, results){
+		var len = results.rows.length, i;
+		var fixture_date_heading = 0;
+		for(i=0;i<len;i++){	
+			var fixture = results.rows.item(i);
+			//console.log(fixture.Match_Date+" "+fixture.Home_Team+" "+fixture.Away_Team+" "+fixture.Kickoff);
+			//group all fixtures with same date under one heading
+			table_content+="<div class='table_row_team'>"+
+				"<div class='table_team_pos'>"+fixture.Position+"</div>"+
+				"<div class='table_team_name'>"+fixture.Team.toUpperCase()+"</div>"+
+				"<div class='table_team_played'>"+fixture.Played+"</div>"+
+				"<div class='table_team_won'>"+fixture.Won+"</div>"+
+				"<div class='table_team_drawn'>"+fixture.Drawn+"</div>"+
+    			"<div class='table_team_lost'>"+fixture.Lost+"</div>"+
+				"<div class='table_team_GD'>"+fixture.GD+"</div>"+
+	 			"<div class='table_team_points'>"+fixture.Points+"</div>"+
+      			"</div>";						
+		}
+		document.getElementById("_head2head_data_table").innerHTML+=table_content;
+		
+	});
+	
+	
+	
+	
+	
+	
+	
 	
 	//get season form for each team.
+	var form_content="";
 	
-	//get home/away form for each team
+	tx.executeSql(' SELECT * FROM '+league+'_season2015 where Home_Team="'+home_team+'" or Away_Team="'+home_team+'" order by Match_Date desc limit 6 ', [], function(tx, results){
+			
+			var len = results.rows.length, i;
+			
+			document.getElementById("home_team_title_form").innerHTML=home_team.toUpperCase();
+			if(len==0){
+				document.getElementById("home_form_data").innerHTML="NO DATA";
+			}
+			for(i=0;i<len;i++){	
+				var fixture = results.rows.item(i);
+				
+				var highlight_class = "";
+				
+				if(fixture.Home_Team==home_team){
+					if(fixture.Home_Goals>fixture.Away_Goals){
+						 highlight_class = "form_box_win";
+					}
+					if(fixture.Home_Goals==fixture.Away_Goals){
+						highlight_class = "form_box_draw";
+					}
+					if(fixture.Home_Goals<fixture.Away_Goals){
+						 highlight_class = "form_box_loss";
+					}
+				}
+				if(fixture.Away_Team==home_team){
+					if(fixture.Away_Goals>fixture.Home_Goals){
+						 highlight_class = "form_box_win";
+					}
+					if(fixture.Away_Goals==fixture.Home_Goals){
+						highlight_class = "form_box_draw";
+					}
+					if(fixture.Away_Goals<fixture.Home_Goals){
+						 highlight_class = "form_box_loss";
+					}
+				}
+				
+				form_content="<div class='form_box "+highlight_class+" '>"+fixture.Home_Goals+"-"+fixture.Away_Goals+"</div>";
+				document.getElementById("home_form_data").innerHTML+=form_content;			
+				
+			}
+			
+		
+		
+		});
 	
-	//get prediction from fixtures.
+	
+	var form_content2="";
+	
+	tx.executeSql(' SELECT * FROM '+league+'_season2015 where Home_Team="'+away_team+'" or Away_Team="'+away_team+'" order by Match_Date desc limit 6 ', [], function(tx, results){
+			
+			var len = results.rows.length, i;
+			
+			document.getElementById("away_team_title_form").innerHTML=away_team.toUpperCase();
+			if(len==0){
+				document.getElementById("away_form_data").innerHTML="NO DATA";
+			}
+			for(i=0;i<len;i++){	
+				var fixture = results.rows.item(i);
+				
+				var highlight_class = "";
+				
+				if(fixture.Home_Team==away_team){
+					if(fixture.Home_Goals>fixture.Away_Goals){
+						 highlight_class = "form_box_win";
+					}
+					if(fixture.Home_Goals==fixture.Away_Goals){
+						highlight_class = "form_box_draw";
+					}
+					if(fixture.Home_Goals<fixture.Away_Goals){
+						 highlight_class = "form_box_loss";
+					}
+				}
+				if(fixture.Away_Team==away_team){
+					if(fixture.Away_Goals>fixture.Home_Goals){
+						 highlight_class = "form_box_win";
+					}
+					if(fixture.Away_Goals==fixture.Home_Goals){
+						highlight_class = "form_box_draw";
+					}
+					if(fixture.Away_Goals<fixture.Home_Goals){
+						 highlight_class = "form_box_loss";
+					}
+				}
+				
+				form_content2="<div class='form_box "+highlight_class+" '>"+fixture.Home_Goals+"-"+fixture.Away_Goals+"</div>";
+				document.getElementById("away_form_data").innerHTML+=form_content2;			
+				
+			}
+			
+		
+		
+		});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		var form_content3="";
+	
+	tx.executeSql(' SELECT * FROM '+league+'_season2015 where Home_Team="'+home_team+'" order by Match_Date desc limit 6 ', [], function(tx, results){
+			
+			var len = results.rows.length, i;
+			
+			
+			if(len==0){
+				document.getElementById("home_form_data_l").innerHTML="NO DATA";
+			}
+			for(i=0;i<len;i++){	
+				var fixture = results.rows.item(i);
+				
+				var highlight_class = "";
+				
+				
+					if(fixture.Home_Goals>fixture.Away_Goals){
+						 highlight_class = "form_box_win";
+					}
+					if(fixture.Home_Goals==fixture.Away_Goals){
+						highlight_class = "form_box_draw";
+					}
+					if(fixture.Home_Goals<fixture.Away_Goals){
+						 highlight_class = "form_box_loss";
+					}
+				
+				
+				form_content3="<div class='form_box "+highlight_class+" '>"+fixture.Home_Goals+"-"+fixture.Away_Goals+"</div>";
+				document.getElementById("home_form_data_l").innerHTML+=form_content3;			
+				
+			}
+			
+		
+		
+		});
+	
+	var form_content4="";
+	
+	tx.executeSql(' SELECT * FROM '+league+'_season2015 where Away_Team="'+away_team+'" order by Match_Date desc limit 6 ', [], function(tx, results){
+			
+			var len = results.rows.length, i;
+			
+			
+			if(len==0){
+				document.getElementById("away_form_data_l").innerHTML="NO DATA";
+			}
+			for(i=0;i<len;i++){	
+				var fixture = results.rows.item(i);
+				
+				var highlight_class = "";
+				//console.log(fixture.Home_Team+" "+fixture.Home_Goals+" - "+fixture.Away_Goals+" "+fixture.Away_Team);
+				
+					if(fixture.Away_Goals>fixture.Home_Goals){
+						 highlight_class = "form_box_win";
+					}
+					if(fixture.Away_Goals==fixture.Home_Goals){
+						highlight_class = "form_box_draw";
+					}
+					if(fixture.Away_Goals<fixture.Home_Goals){
+						 highlight_class = "form_box_loss";
+					}
+				
+				
+				form_content4="<div class='form_box "+highlight_class+" '>"+fixture.Home_Goals+"-"+fixture.Away_Goals+"</div>";
+				document.getElementById("away_form_data_l").innerHTML+=form_content4;			
+				
+			}
+			
+		
+		
+		});
+		
+		
+		//get reverse fixture
+		tx.executeSql('SELECT Home_Goals,Away_Goals FROM '+league+'_season2015 where Home_Team="'+away_team+'" AND Away_Team="'+home_team+'" ORDER BY Match_Date desc limit 1', [], function(tx, results){
+			
+			var len = results.rows.length, i;
+			
+			for(i=0;i<len;i++){	
+				var fixture = results.rows.item(i);
+						
+				document.getElementById("h2h_previous_fixture").innerHTML="<center>REVERSE FIXTURE</center><span class='fixture'><div class='fixture_home_team'>"+away_team.toUpperCase()+"</div><div class='fixture_time'>"+fixture.Home_Goals+" - "+fixture.Away_Goals+"</div><div class='fixture_away_team'>"+home_team.toUpperCase()+"</div></span>";
+							
+				
+			}
+			
+		
+		
+		});
+		
+		
+//get prediction
+
+			tx.executeSql('SELECT p_h_goals,p_a_goals FROM '+league+'_fixtures where Home_Team="'+home_team+'" AND Away_Team="'+away_team+'" AND Match_Date="'+matchdate+'" ', [], function(tx, results){
+			
+			var len = results.rows.length, i;
+			
+			for(i=0;i<len;i++){	
+				var fixture = results.rows.item(i);
+				
+				if(fixture.p_h_goals===null) fixture.p_h_goals = " ";
+				if(fixture.p_a_goals===null) fixture.p_a_goals = " ";
+				
+				document.getElementById("h2h_prediction_fixture").innerHTML="<center>PREDICTION</center><span class='fixture'><div class='fixture_home_team'>"+home_team.toUpperCase()+"</div><div class='fixture_time'>"+fixture.p_h_goals+" - "+fixture.p_a_goals+"</div><div class='fixture_away_team'>"+away_team.toUpperCase()+"</div></span>";
+							
+				
+			}
+			
+		
+		
+		});
+	
+	
 	
 	});
 	
