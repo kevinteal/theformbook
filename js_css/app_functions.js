@@ -476,7 +476,7 @@ function prediction_setup(){
 				if(fixture.p_h_goals=="null") fixture.p_h_goals = " ";
 				if(fixture.p_a_goals=="null") fixture.p_a_goals = " ";
 								
-				var data = "<span class='fixture' onClick=\"head2head_load('"+fixture.Home_Team+"','"+fixture.Away_Team+"','"+league_title+"', '"+fixture.Match_Date+"')\" ><div class='fixture_home_team'>"+fixture.Home_Team.toUpperCase()+"</div><div class='fixture_time'>"+fixture.p_h_goals+" - "+fixture.p_a_goals+"</div><div class='fixture_away_team'>"+fixture.Away_Team.toUpperCase()+"</div></span>";
+				var data = "<span class='fixture' onClick=\"head2head_load('"+fixture.Home_Team+"','"+fixture.Away_Team+"','"+league_title+"', '"+fixture.Match_Date+"')\" ><div class='fixture_home_team'>"+fixture.Home_Team.toUpperCase()+"</div><div class='fixture_time null_finder'>"+fixture.p_h_goals+" - "+fixture.p_a_goals+"</div><div class='fixture_away_team'>"+fixture.Away_Team.toUpperCase()+"</div></span>";
 				content+=data;
 			}
 			
@@ -485,6 +485,14 @@ function prediction_setup(){
 			content+="</div>";//close prediction box.
 		document.getElementById("_prediction_data").innerHTML += content;
 		content="";//reset content
+		
+		var null_finder = document.getElementsByClassName("null_finder");
+		for (var i = 0; i < null_finder.length; i++) {
+			var text = null_finder[i].innerHTML;
+			if(text.substr(0,4)=="null"){
+				null_finder[i].innerHTML=" - ";
+			}
+		}
 		
 		if(curr_league==5){
 			// counter gets +1 after conference above
@@ -796,12 +804,18 @@ function head2head_load(home_team,away_team,league,matchdate){
 				if(fixture.p_h_goals=="null") fixture.p_h_goals = " ";
 				if(fixture.p_a_goals=="null") fixture.p_a_goals = " ";
 				
-				document.getElementById("h2h_prediction_fixture").innerHTML="<center>PREDICTION</center><span class='fixture'><div class='fixture_home_team'>"+home_team.toUpperCase()+"</div><div class='fixture_time'>"+fixture.p_h_goals+" - "+fixture.p_a_goals+"</div><div class='fixture_away_team'>"+away_team.toUpperCase()+"</div></span>";
+				document.getElementById("h2h_prediction_fixture").innerHTML="<center>PREDICTION</center><span class='fixture'><div class='fixture_home_team'>"+home_team.toUpperCase()+"</div><div class='fixture_time null_finder'>"+fixture.p_h_goals+" - "+fixture.p_a_goals+"</div><div class='fixture_away_team'>"+away_team.toUpperCase()+"</div></span>";
 							
 				
 			}
 			
-		
+		var null_finder = document.getElementsByClassName("null_finder");
+		for (var i = 0; i < null_finder.length; i++) {
+			var text = null_finder[i].innerHTML;
+			if(text.substr(0,4)=="null"){
+				null_finder[i].innerHTML=" - ";
+			}
+		}
 		
 		});
 	
