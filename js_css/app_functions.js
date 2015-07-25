@@ -470,8 +470,8 @@ function prediction_setup(){
 			
 			for(i=0;i<len;i++){	
 				var fixture = results.rows.item(i);
-				if(fixture.p_h_goals===null) fixture.p_h_goals = " ";
-				if(fixture.p_a_goals===null) fixture.p_a_goals = " ";
+				if(fixture.p_h_goals==null) fixture.p_h_goals = " ";
+				if(fixture.p_a_goals==null) fixture.p_a_goals = " ";
 				var data = "<span class='fixture' onClick=\"head2head_load('"+fixture.Home_Team+"','"+fixture.Away_Team+"','"+league_title+"', '"+fixture.Match_Date+"')\" ><div class='fixture_home_team'>"+fixture.Home_Team.toUpperCase()+"</div><div class='fixture_time'>"+fixture.p_h_goals+" - "+fixture.p_a_goals+"</div><div class='fixture_away_team'>"+fixture.Away_Team.toUpperCase()+"</div></span>";
 				content+=data;
 			}
@@ -787,8 +787,8 @@ function head2head_load(home_team,away_team,league,matchdate){
 			for(i=0;i<len;i++){	
 				var fixture = results.rows.item(i);
 				
-				if(fixture.p_h_goals===null) fixture.p_h_goals = " ";
-				if(fixture.p_a_goals===null) fixture.p_a_goals = " ";
+				if(fixture.p_h_goals==null) fixture.p_h_goals = " ";
+				if(fixture.p_a_goals==null) fixture.p_a_goals = " ";
 				
 				document.getElementById("h2h_prediction_fixture").innerHTML="<center>PREDICTION</center><span class='fixture'><div class='fixture_home_team'>"+home_team.toUpperCase()+"</div><div class='fixture_time'>"+fixture.p_h_goals+" - "+fixture.p_a_goals+"</div><div class='fixture_away_team'>"+away_team.toUpperCase()+"</div></span>";
 							
