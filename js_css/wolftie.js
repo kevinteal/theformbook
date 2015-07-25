@@ -106,10 +106,13 @@ function fixtures_json(league){
 		fixture_counter++;
 		if(fixture_counter==5){
 			console.log("all fixtures loaded?");
-			document.getElementById('fixtures_list_heading').setAttribute("data-leaguename","prem");
-			document.getElementById('fixtures_list_heading').innerHTML="PREMIER LEAGUE";
-			load_in_data_main('premier');
-			hide_loading_screen();
+			//give extra time to get data
+			setTimeout(function(){ 
+				document.getElementById('fixtures_list_heading').setAttribute("data-leaguename","prem");
+				document.getElementById('fixtures_list_heading').innerHTML="PREMIER LEAGUE";
+				load_in_data_main('premier');
+				hide_loading_screen();
+			}, 2000);
 		}
 		});
 		
