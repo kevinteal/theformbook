@@ -32,6 +32,9 @@ db.transaction(function (tx) {
 		tx.executeSql('CREATE TABLE IF NOT EXISTS league2_season2015 (Home_Team TEXT, Away_Team TEXT, Home_Goals INTEGER, Away_Goals INTEGER, Match_Date TEXT, PRIMARY KEY(Match_Date,Home_Team,Away_Team))');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS conference_season2015 (Home_Team TEXT, Away_Team TEXT, Home_Goals INTEGER, Away_Goals INTEGER, Match_Date TEXT, PRIMARY KEY(Match_Date,Home_Team,Away_Team))');
 		
+		
+		tx.executeSql('CREATE TABLE IF NOT EXISTS predictions (League TEXT, Home_Team TEXT, Away_Team TEXT, Home_Goals INTEGER, Away_Goals INTEGER, Real_Home_Goals INTEGER, Real_Away_Goals INTEGER, Match_Date TEXT)');
+		
 		//if you need to remove a table, use sql ('show tables like 'tablename') if the result set returns a row then drop table code.
 });
 
@@ -153,6 +156,32 @@ function season_json(league){
 	});
 }
 
+
+
+function analytics_json(){
+	$.getJSON("http://api.wolfstudioapps.co.uk/apps/bet_penguin/mobile_files/json_analytics.php")
+	.done(function( json ) {
+		db.transaction(function (tx) {	
+			tx.executeSql('DELETE FROM predictions');
+			});
+    	//console.log( "JSON Data: " + json.position);
+		db.transaction(function (tx) {	
+		$.each(json,function(key,val){
+			//console.log(val.Home_Team + " " + val.Home_Goals + " - " + val.Away_Goals + " " + val.Away_Team +" "+val.date);
+			
+			tx.executeSql('INSERT INTO predictions (League, Home_Team, Away_Team, Home_Goals, Away_Goals, Real_Home_Goals, Real_Away_Goals, Match_Date) VALUES ("'+val.League+'", "'+val.Home_Team+'", "'+val.Away_Team+'", '+val.Home_Goals+', '+val.Away_Goals+', '+val.Real_Home_Goals+', '+val.Real_Away_Goals+', "'+val.date+'")');
+			});
+		});
+		console.log("Success json analytics");
+		
+	  })
+	.fail(function( jqxhr, textStatus, error ) {
+		var err = textStatus + ", " + error;
+		console.log( "Request Failed: " + err );
+	});
+}
+
+
 function check_time_log(){
 	
 	db.transaction(function (tx) {	
@@ -207,6 +236,8 @@ function refresh_table_data(time,user_time){
 			var league1_season = season_json('league1');
 			var league2_season = season_json('league2');
 			var conference_season = season_json('conference');
+			
+			var predictions = analytics_json();
 		
 	db.transaction(function (tx) {	
 			tx.executeSql('UPDATE time_log SET data_time="'+time.toString()+'" WHERE tid=1');

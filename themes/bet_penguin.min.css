@@ -361,6 +361,31 @@
 	width:100%;
 	font-size:0.7em;
 }
+.analytics_heading{
+	float:right;
+	width:30%;
+	color:#7e7e7e;
+	text-align:center;
+}
+.ft_score{
+	float:left;
+	width:30%;
+	margin-top:0.3em;
+	text-align:center;
+}
+.analytics_team{
+	float:left;
+	text-align:right;
+	width:40%;
+	margin-top:0.3em;
+}
+.line_bar{
+	float:left;
+	height:1px;
+	margin:0.5em;
+	width:100%;
+	background:#374140;
+}
 
 
 /* DONT PUT CSS BELOW THIS. BREAKS SOMEHOW */

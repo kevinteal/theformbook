@@ -536,6 +536,68 @@ function get_today(){
 	return today;
 }
 
+function analytics(league){
+	var show_league=league;
+	var sql_league = league;
+	
+	if(sql_league == "premier") show_league="PREMIER LEAGUE";
+	if(sql_league == "champ") show_league="CHAMPIONSHIP";
+	if(sql_league == "league1") show_league="LEAGUE 1";
+	if(sql_league == "league2") show_league=" LEAGUE 2";
+	if(sql_league == "conference") show_league="CONFERENCE";
+	document.getElementById('analytics_list_heading').innerHTML=show_league;
+	$( "#analytics_popup_leagues" ).popup( "close" );
+	document.getElementById("_analytics_data").innerHTML="<p></p>";
+	load_analytics(sql_league);
+}
+
+
+
+function load_analytics(league){
+	$("#analytics_loading_screen").css("display","block");
+	var data_in = document.getElementById("_analytics_data").innerHTML;
+	var today = get_today();
+	
+	if(data_in=="<p></p>"){
+				console.log("here");
+		db.transaction(function (tx) {	
+			tx.executeSql(' SELECT * FROM predictions WHERE League="'+league+'" and Match_Date<"'+today+'" order by Match_Date desc ', [], function(tx, results){
+			var len = results.rows.length, i;
+			var fixture_date_heading = 0;
+			var content = "";
+			console.log("here1");
+			for(i=0;i<len;i++){	
+				var fixture = results.rows.item(i);
+				//console.log(fixture.Match_Date+" "+fixture.Home_Team+" "+fixture.Away_Team+" "+fixture.Kickoff);
+				if(fixture_date_heading!=fixture.Match_Date){
+					//output a new heading for date
+					var fix_date = new Date(fixture.Match_Date);
+					fix_date = fix_date.toLocaleDateString('en-US', date_options);
+					content+="<div class='new_date'>"+fix_date.toUpperCase()+"</div> <div class='analytics_heading'>PREDICTION</div><div class='analytics_heading'>FT</div><div class='clear_line'></div>";
+					fixture_date_heading = fixture.Match_Date;
+				}
+					//group all fixtures with same date under one heading
+					content+=" <div class='analytics_team'>"+fixture.Home_Team.toUpperCase()+"</div><div class='ft_score'>"+fixture.Real_Home_Goals+"</div><div class='ft_score'>"+fixture.Home_Goals+"</div> "+
+					"<div class='analytics_team'>"+fixture.Away_Team.toUpperCase()+"</div><div class='ft_score'>"+fixture.Real_Away_Goals+"</div><div class='ft_score'>"+fixture.Away_Goals+"</div>"+
+					"<div class='line_bar'></div>";
+					console.log("here2");
+										
+			}
+			//add all content to screen
+			if(content==""){
+				content="<p>No Data Found</p>"
+			}
+			document.getElementById("_analytics_data").innerHTML = content;
+			$("#analytics_loading_screen").css("display","none");
+	});
+	});
+	}else{
+		//keep data already loaded
+		
+		$("#analytics_loading_screen").css("display","none");
+	}
+}
+
 
 function head2head_load(home_team,away_team,league,matchdate){
 	document.getElementById("_head2head_data_table").innerHTML="";
@@ -565,7 +627,7 @@ function head2head_load(home_team,away_team,league,matchdate){
 	//get league table position for home and away teams.
 	var table_content = "<p></p><div class='clear_line'> <div class='_table_header_l'>POINTS</div><div class='_table_header'>GD</div><div class='_table_header'>L</div><div class='_table_header'>D</div><div class='_table_header'>W</div> <div class='_table_header'>P</div></div>";
 	
-	tx.executeSql(' SELECT * FROM '+league+'_leaguetable where Team in ("'+home_team+'", "'+away_team+'") ', [], function(tx, results){
+	tx.executeSql(' SELECT * FROM '+league+'_leaguetable where Team in ("'+home_team+'", "'+away_team+'") order by position asc ', [], function(tx, results){
 		var len = results.rows.length, i;
 		var fixture_date_heading = 0;
 		for(i=0;i<len;i++){	
@@ -875,6 +937,9 @@ function panel_change_page(page){
 	if(page=="tables"){
 		//send over for inital load
 		load_league_table('premier');
+	}
+	if(page=="analytics"){
+		load_analytics("premier");
 	}
 	
 }
