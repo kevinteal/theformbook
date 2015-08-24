@@ -386,7 +386,10 @@
 	width:100%;
 	background:#374140;
 }
-
+#_about_data{
+	font-family:Verdana, Geneva, sans-serif !important;
+	font-size:1em;
+}
 
 /* DONT PUT CSS BELOW THIS. BREAKS SOMEHOW */
 .ui-content{
