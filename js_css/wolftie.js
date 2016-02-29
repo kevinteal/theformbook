@@ -63,7 +63,7 @@ function hide_loading_screen(){
 
 
 function league_table_json(league){
-	$.getJSON("http://api.wolfstudioapps.co.uk/apps/bet_penguin/mobile_files/json_league_table.php", {league:league})
+	$.getJSON("http://api.wolfstudioapps16.co.uk/apps/bet_penguin/mobile_files/json_league_table.php", {league:league})
 	.done(function( json ) {
 		$("#main_loading_screen").html("LOADING DATA...<br/>"+league+" Table");
 		db.transaction(function (tx) {	
@@ -93,7 +93,7 @@ function league_table_json(league){
 
 
 function fixtures_json(league){
-	$.getJSON("http://api.wolfstudioapps.co.uk/apps/bet_penguin/mobile_files/json_fixtures.php", {league:league})
+	$.getJSON("http://api.wolfstudioapps16.co.uk/apps/bet_penguin/mobile_files/json_fixtures.php", {league:league})
 	.done(function( json ) {
 		$("#main_loading_screen").html("LOADING DATA...<br/>"+league+" Table");
 		db.transaction(function (tx) {	
@@ -128,7 +128,7 @@ function fixtures_json(league){
 }
 
 function season_json(league){
-	$.getJSON("http://api.wolfstudioapps.co.uk/apps/bet_penguin/mobile_files/json_season.php", {league:league})
+	$.getJSON("http://api.wolfstudioapps16.co.uk/apps/bet_penguin/mobile_files/json_season.php", {league:league})
 	.done(function( json ) {
 		$("#main_loading_screen").html("LOADING DATA...<br/>"+league+" Table");
 		db.transaction(function (tx) {	
@@ -159,7 +159,7 @@ function season_json(league){
 
 
 function analytics_json(){
-	$.getJSON("http://api.wolfstudioapps.co.uk/apps/bet_penguin/mobile_files/json_analytics.php")
+	$.getJSON("http://api.wolfstudioapps16.co.uk/apps/bet_penguin/mobile_files/json_analytics.php")
 	.done(function( json ) {
 		db.transaction(function (tx) {	
 			tx.executeSql('DELETE FROM predictions');
