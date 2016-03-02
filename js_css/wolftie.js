@@ -63,8 +63,8 @@ function hide_loading_screen(){
 
 
 function league_table_json(league){
-	console.log("here bet penguin league table json...");
-	$.getJSON("http://api.wolfstudioapps16.co.uk/apps/bet_penguin/mobile_files/json_league_table.php", {league:league})
+	$("#tester_plate").append("<br/>here bet penguin league table json..."+league);
+	$.getJSON("http://api.wolfstudioapps16.co.uk/apps/bet_penguin/mobile_files/json_league_table.php?league="+league)
 	.done(function( json ) {
 		$("#tester_plate").append("<br/>here bet penguin inside league table json...");
 		$("#main_loading_screen").html("LOADING DATA...<br/>"+league+" Table");
