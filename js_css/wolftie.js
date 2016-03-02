@@ -66,7 +66,7 @@ function league_table_json(league){
 	console.log("here bet penguin league table json...");
 	$.getJSON("http://api.wolfstudioapps16.co.uk/apps/bet_penguin/mobile_files/json_league_table.php", {league:league})
 	.done(function( json ) {
-		console.log("here bet penguin inside league table json...");
+		$("#tester_plate").append("<br/>here bet penguin inside league table json...");
 		$("#main_loading_screen").html("LOADING DATA...<br/>"+league+" Table");
 		db.transaction(function (tx) {	
 			tx.executeSql('DELETE FROM '+league+'_leaguetable');
@@ -216,9 +216,9 @@ function check_time_log(){
 function refresh_table_data(time,user_time){
 	//only run on start of app and on refersh data
 	//user_time is for use if offline browser
-	console.log("here bet penguin before navigator online...");
+	$("#tester_plate").append("<br/>here bet penguin before navigator online...");
 	if(navigator.onLine==true){
-		console.log("here bet penguin navigator online...");
+		$("#tester_plate").append("<br/>here bet penguin navigator online...");
 		
 			var premier_table = league_table_json('premier');
 			var champ_table = league_table_json('champ');
