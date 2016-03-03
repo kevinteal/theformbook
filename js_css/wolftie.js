@@ -64,8 +64,7 @@ function hide_loading_screen(){
 function testingwolf16(){
 	$.ajax({
 	  method: "GET",
-	  url: "http://api.wolfstudioapps16.co.uk/apps/bet_penguin/mobile_files/json_league_table.php?",
-	  data: { league: "champ"}
+	  url: "http://wolfstudioapps.co.uk/"
 	})
 	  .done(function( msg ) {
 		alert( "Data Saved: " + msg );
