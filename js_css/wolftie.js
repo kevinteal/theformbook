@@ -60,20 +60,9 @@ function hide_loading_screen(){
 	}
 }
 
-
-function testingwolf16(){
-	$.ajax({
-	  method: "GET",
-	  url: "http://wolfstudioapps.co.uk/"
-	})
-	  .done(function( msg ) {
-		alert( "Data Saved: " + msg );
-	  });
-}
-
 function league_table_json(league){
 	$("#tester_plate").append("<br/>here bet penguin league table json..."+league);
-	$.getJSON("http://api.wolfstudioapps16.co.uk/apps/bet_penguin/mobile_files/json_league_table.php?league="+league).done(function( json ) {
+	$.getJSON("http://api.wolfstudioapps.co.uk/apps/bet_penguin/mobile_files/json_league_table.php?league="+league).done(function( json ) {
 		$("#tester_plate").append("<br/>here bet penguin inside league table json...");
 		$("#main_loading_screen").html("LOADING DATA...<br/>"+league+" Table");
 		db.transaction(function (tx) {	
@@ -103,7 +92,7 @@ function league_table_json(league){
 
 
 function fixtures_json(league){
-	$.getJSON("http://api.wolfstudioapps16.co.uk/apps/bet_penguin/mobile_files/json_fixtures.php", {league:league})
+	$.getJSON("http://api.wolfstudioapps.co.uk/apps/bet_penguin/mobile_files/json_fixtures.php", {league:league})
 	.done(function( json ) {
 		$("#main_loading_screen").html("LOADING DATA...<br/>"+league+" Table");
 		db.transaction(function (tx) {	
@@ -138,7 +127,7 @@ function fixtures_json(league){
 }
 
 function season_json(league){
-	$.getJSON("http://api.wolfstudioapps16.co.uk/apps/bet_penguin/mobile_files/json_season.php", {league:league})
+	$.getJSON("http://api.wolfstudioapps.co.uk/apps/bet_penguin/mobile_files/json_season.php", {league:league})
 	.done(function( json ) {
 		$("#main_loading_screen").html("LOADING DATA...<br/>"+league+" Table");
 		db.transaction(function (tx) {	
@@ -169,7 +158,7 @@ function season_json(league){
 
 
 function analytics_json(){
-	$.getJSON("http://api.wolfstudioapps16.co.uk/apps/bet_penguin/mobile_files/json_analytics.php")
+	$.getJSON("http://api.wolfstudioapps.co.uk/apps/bet_penguin/mobile_files/json_analytics.php")
 	.done(function( json ) {
 		db.transaction(function (tx) {	
 			tx.executeSql('DELETE FROM predictions');
@@ -229,7 +218,7 @@ function refresh_table_data(time,user_time){
 		$("#tester_plate").append("<br/>here bet penguin navigator online...");
 		
 			var premier_table = testingwolf16('premier');
-			/*var champ_table = league_table_json('champ');
+			var champ_table = league_table_json('champ');
 			var league1_table = league_table_json('league1');
 			var league2_table = league_table_json('league2');
 			var conference_table = league_table_json('conference');
@@ -248,7 +237,7 @@ function refresh_table_data(time,user_time){
 			var league2_season = season_json('league2');
 			var conference_season = season_json('conference');
 			
-			var predictions = analytics_json();*/
+			var predictions = analytics_json();
 		
 	db.transaction(function (tx) {	
 			tx.executeSql('UPDATE time_log SET data_time="'+time.toString()+'" WHERE tid=1');
