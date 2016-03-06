@@ -60,10 +60,11 @@ function hide_loading_screen(){
 	}
 }
 
+
+
 function league_table_json(league){
-	$("#tester_plate").append("<br/>here bet penguin league table json..."+league);
-	$.getJSON("http://api.wolfstudioapps.co.uk/apps/bet_penguin/mobile_files/json_league_table.php?league="+league).done(function( json ) {
-		$("#tester_plate").append("<br/>here bet penguin inside league table json...");
+	$.getJSON("http://api.wolfstudioapps16.co.uk/apps/bet_penguin/mobile_files/json_league_table.php", {league:league})
+	.done(function( json ) {
 		$("#main_loading_screen").html("LOADING DATA...<br/>"+league+" Table");
 		db.transaction(function (tx) {	
 			tx.executeSql('DELETE FROM '+league+'_leaguetable');
@@ -92,7 +93,7 @@ function league_table_json(league){
 
 
 function fixtures_json(league){
-	$.getJSON("http://api.wolfstudioapps.co.uk/apps/bet_penguin/mobile_files/json_fixtures.php", {league:league})
+	$.getJSON("http://api.wolfstudioapps16.co.uk/apps/bet_penguin/mobile_files/json_fixtures.php", {league:league})
 	.done(function( json ) {
 		$("#main_loading_screen").html("LOADING DATA...<br/>"+league+" Table");
 		db.transaction(function (tx) {	
@@ -127,7 +128,7 @@ function fixtures_json(league){
 }
 
 function season_json(league){
-	$.getJSON("http://api.wolfstudioapps.co.uk/apps/bet_penguin/mobile_files/json_season.php", {league:league})
+	$.getJSON("http://api.wolfstudioapps16.co.uk/apps/bet_penguin/mobile_files/json_season.php", {league:league})
 	.done(function( json ) {
 		$("#main_loading_screen").html("LOADING DATA...<br/>"+league+" Table");
 		db.transaction(function (tx) {	
@@ -158,7 +159,7 @@ function season_json(league){
 
 
 function analytics_json(){
-	$.getJSON("http://api.wolfstudioapps.co.uk/apps/bet_penguin/mobile_files/json_analytics.php")
+	$.getJSON("http://api.wolfstudioapps16.co.uk/apps/bet_penguin/mobile_files/json_analytics.php")
 	.done(function( json ) {
 		db.transaction(function (tx) {	
 			tx.executeSql('DELETE FROM predictions');
@@ -186,7 +187,7 @@ function check_time_log(){
 	db.transaction(function (tx) {	
 			tx.executeSql('SELECT data_time FROM time_log WHERE tid=1', [], function(tx, results){
 			var tabledata = results.rows.item(0);
-			var data_time = tabledata.data_time;
+			data_time = tabledata.data_time;
 			var user_time = new Date(data_time); //user time
 			var today_time= new Date(); //today
 			var gap_time = today_time.getTime()-user_time.getTime();
@@ -213,11 +214,10 @@ function check_time_log(){
 function refresh_table_data(time,user_time){
 	//only run on start of app and on refersh data
 	//user_time is for use if offline browser
-	$("#tester_plate").append("<br/>here bet penguin before navigator online...");
 	if(navigator.onLine==true){
-		$("#tester_plate").append("<br/>here bet penguin navigator online...");
 		
-			var premier_table = testingwolf16('premier');
+		
+			var premier_table = league_table_json('premier');
 			var champ_table = league_table_json('champ');
 			var league1_table = league_table_json('league1');
 			var league2_table = league_table_json('league2');

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.TheFormBookPredictsTheFootballLeague" version="1.0.5" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.TheFormBookPredictsTheFootballLeague" version="1.0.4" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>The Form Book Predicts</name>
     <description>
       The Form Book Predicts The Premier League, Football League and Conference 
@@ -24,11 +24,18 @@
     <preference name="android-minSdkVersion" value="7" />
     <preference name="android-installLocation" value="auto" />
 	
+	<plugin name="cordova-plugin-whitelist" />
+	
 	<feature name="InAppBrowser">
     <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
 	</feature>
 	<access origin="*"/>
-	
+	<allow-navigation href="*" />
+	<allow-intent href="http://*/*" />
+	<access origin="content:///*" />
+<allow-intent href="https://*/*" />
+
+
     <icon src="icon48.png" />
     <icon gap:density="ldpi" gap:platform="android" src="icon36.png" />
     <icon gap:density="mdpi" gap:platform="android" src="icon48.png" />
@@ -54,5 +61,7 @@
     <gap:splash gap:platform="ios" height="768" src="res/screen/ios/screen-ipad-landscape.png" width="1024" />
     <gap:splash gap:platform="winphone" src="res/screen/windows-phone/screen-portrait.jpg" />
     <access origin="http://127.0.0.1*" />
-	<access origin="http://160.153.162.9*" />
+	
+	<splash src="res/screen/Android/screen-hdpi-portrait.png" platform="android" width="480" height="800" />
+	
 </widget>
